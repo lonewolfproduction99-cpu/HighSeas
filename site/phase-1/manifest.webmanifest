@@ -1,0 +1,12 @@
+{
+  "name": "High Seas",
+  "short_name": "High Seas",
+  "id": "com.highseas.game",
+  "description": "Passive pirate roguelite (working title).",
+  "orientation": "portrait",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "black",
+  "categories": ["games", "entertainment"],
+  "icons": []
+}

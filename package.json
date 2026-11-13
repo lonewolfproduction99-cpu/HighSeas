@@ -1,0 +1,1 @@
+{"name":"high-seas","private":true,"version":"0.1.0","scripts":{"build":"node tools/build_web.mjs","serve":"node tools/serve.mjs"},"devDependencies":{"gdexporter":"4.0.0-beta7"}}
