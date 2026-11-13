@@ -98,6 +98,40 @@ def player_ship():
     img.save(out("ships", "ship_player_sloop_PH.png"))
 
 
+def enemy_ship(filename, hull_col, deck_col, sail_col, sail_outline, flag_col, beam=0):
+    """Generic top-down enemy ship, bow up. beam widens the hull (merchants are tubby)."""
+    W, H = 130 + beam * 2, 270
+    cx = W // 2
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    b = 36 + beam
+    hull = [(cx, 6), (cx + b - 4, 62), (cx + b, 150), (cx + b - 8, 222), (cx + 12, 262),
+            (cx - 12, 262), (cx - b + 8, 222), (cx - b, 150), (cx - b + 4, 62)]
+    d.polygon(hull, fill=hull_col, outline=(30, 20, 10, 255))
+    i = b - 10
+    deck = [(cx, 24), (cx + i - 2, 68), (cx + i, 150), (cx + i - 6, 214), (cx + 8, 248),
+            (cx - 8, 248), (cx - i + 6, 214), (cx - i, 150), (cx - i + 2, 68)]
+    d.polygon(deck, fill=deck_col)
+    for y in range(44, 246, 12):
+        d.line([(cx - i + 4, y), (cx + i - 4, y)], fill=tuple(max(0, c - 25) for c in deck_col[:3]) + (255,))
+    for cy in (90, 130, 170, 205):
+        d.rectangle([cx - b - 8, cy, cx - b + 4, cy + 8], fill=(40, 40, 44, 255))
+        d.rectangle([cx + b - 4, cy, cx + b + 8, cy + 8], fill=(40, 40, 44, 255))
+    for top, h in ((72, 40), (142, 48)):
+        d.ellipse([cx - b - 6, top, cx + b + 6, top + h], fill=sail_col, outline=sail_outline)
+        d.ellipse([cx - 5, top + h // 2 - 5, cx + 5, top + h // 2 + 5], fill=(70, 45, 25, 255))
+    d.rectangle([cx - 12, 30, cx + 12, 46], fill=flag_col)
+    d.text((cx, 228), "PH", font=font(16), fill=(255, 60, 60, 255), anchor="mm")
+    img.save(out("ships", filename))
+
+
+def enemy_ships():
+    enemy_ship("ship_enemy_merchant_PH.png", (150, 110, 70, 255), (196, 160, 110, 255),
+               (245, 240, 225, 235), (160, 150, 130, 255), (40, 90, 170, 255), beam=8)
+    enemy_ship("ship_enemy_pirate_PH.png", (60, 40, 32, 255), (110, 80, 56, 255),
+               (40, 40, 44, 235), (10, 10, 10, 255), (20, 20, 20, 255))
+
+
 # ---------------------------------------------------------------- ui
 def rounded_panel(name, size, fill, outline):
     w, h = size
@@ -147,6 +181,9 @@ def ui():
     # Drawn at their on-screen size so corners are not distorted by stretching.
     rounded_panel("hud_panel.png", (688, 184), (20, 28, 40, 200), (200, 170, 110, 255))
     rounded_panel("button_wood.png", (360, 110), (130, 82, 40, 255), (230, 190, 120, 255))
+    rounded_panel("button_small.png", (216, 96), (235, 235, 235, 255), (255, 255, 255, 255))  # tinted by events
+    rounded_panel("panel_enemy.png", (688, 210), (40, 22, 22, 215), (200, 170, 110, 255))
+    rounded_panel("panel_result.png", (620, 420), (20, 28, 40, 235), (230, 190, 120, 255))
     solid("bar_bg.png", (16, 16), (40, 20, 20, 255))
     solid("bar_fill.png", (16, 16), (255, 255, 255, 255))  # white; tinted by events
     icons()
@@ -171,6 +208,7 @@ if __name__ == "__main__":
     ocean_tile()
     foam_tile()
     player_ship()
+    enemy_ships()
     ui()
     port_bg()
     print("placeholders written to", os.path.abspath(ROOT))

@@ -1,1 +1,14 @@
-{"name":"high-seas","private":true,"version":"0.1.0","scripts":{"build":"node tools/build_web.mjs","serve":"node tools/serve.mjs"},"devDependencies":{"gdexporter":"4.0.0-beta7"}}
+{
+  "name": "high-seas",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node tools/build_web.mjs",
+    "serve": "node tools/serve.mjs",
+    "test:encounters": "node tools/test_phase2.mjs"
+  },
+  "devDependencies": {
+    "gdexporter": "4.0.0-beta7",
+    "puppeteer-core": "24.10.0"
+  }
+}

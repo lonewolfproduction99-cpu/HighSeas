@@ -1,5 +1,10 @@
 [
   {
+    "phase": 2,
+    "note": "Encounters: merchants & pirates, Fight / Flee / Parley",
+    "built": "2026-11-13"
+  },
+  {
     "phase": 1,
     "note": "Foundation: scrolling ocean, ship, HUD, Port to Sail loop",
     "built": "2026-11-13"

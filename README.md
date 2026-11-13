@@ -18,6 +18,8 @@ One-time setup: install [Node.js](https://nodejs.org) (already on this PC), then
 | Play it on your phone (same Wi-Fi) | `npm run serve`, then open the "On your phone" address it prints |
 | Play it on your phone anywhere | Commit and push to GitHub. The Pages workflow publishes `site/` to `https://<user>.github.io/<repo>/` |
 
+| Run the automated encounter playtest | `npm run test:encounters` (after building phase 2+). Headless Chrome/Edge taps through every outcome |
+
 Every phase keeps its own build, so older phases stay playable for comparison.
 On a phone, use **Add to Home Screen** to play full screen.
 
@@ -28,6 +30,9 @@ assets/placeholders/...       Temporary art (see assets/ASSET_MANIFEST.md)
 assets/ASSET_MANIFEST.md      Asset / license tracking
 tools/make_placeholders.py    Regenerates placeholder PNGs
 tools/bootstrap_phase1.py     One-time generator used to create the Phase 1 project
+tools/gdlib.py                Helpers for writing GDevelop events/objects from patch scripts
+tools/phase2_encounters.py    One-time patch that added Phase 2 (refuses to run twice)
+tools/test_phase2.mjs         Automated headless playtest of the encounter loop
 docs/STATUS.md                Completed features, known issues, next steps
 tools/build_web.mjs           npm run build: exports a phase build into site/
 tools/serve.mjs               npm run serve: serves site/ on this PC + local network
@@ -39,6 +44,7 @@ site/                         Published phase builds (GitHub Pages)
 | Logical manager | Implementation |
 |---|---|
 | VoyageManager | External events `VoyageManager` (linked from Sailing): state machine, distance, ocean scroll |
+| EncounterManager | External events `EncounterManager` (linked from Sailing): spawn timer, weighted type pick, approach, decisions, outcomes |
 | UIManager | External events `UIManager` (linked from Sailing): responsive layout, HUD refresh, HUD buttons |
 | PortManager | Port scene events (stub) |
 | Encounter/Combat/Boarding/Ship/Crew/Economy/Progression/Save managers | Added in later phases as further external events / extension functions |

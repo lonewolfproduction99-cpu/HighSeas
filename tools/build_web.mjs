@@ -18,7 +18,8 @@ if (!Number.isInteger(phase) || phase < 1) {
 
 const site = join(root, "site");
 const out = join(site, `phase-${phase}`);
-rmSync(out, { recursive: true, force: true });
+// Retries: on Windows the local preview server can briefly hold files open.
+rmSync(out, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 mkdirSync(out, { recursive: true });
 
 console.log(`Exporting HighSeas.json -> site/phase-${phase} ...`);
