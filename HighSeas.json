@@ -427,7 +427,7 @@
         {
           "name": "ShipLength",
           "type": "number",
-          "value": 416
+          "value": 481
         },
         {
           "name": "WaterSize",
@@ -442,7 +442,7 @@
         {
           "name": "ShipScale",
           "type": "number",
-          "value": 1.6
+          "value": 1.85
         },
         {
           "name": "ShipZ",
@@ -450,9 +450,9 @@
           "value": -20
         },
         {
-          "name": "ApproachDist",
+          "name": "DriftSpeed",
           "type": "number",
-          "value": 2200
+          "value": 120
         }
       ]
     },
@@ -1060,6 +1060,210 @@
               "name": "SailDmg",
               "type": "number",
               "value": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ShipGuns",
+      "type": "structure",
+      "children": [
+        {
+          "name": "Sloop",
+          "type": "structure",
+          "children": [
+            {
+              "name": "Starboard",
+              "type": "array",
+              "children": [
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 2.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -0.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 1.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -2.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 2.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": 2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -4.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 1.556
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Port",
+              "type": "array",
+              "children": [
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": -2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": 2.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 2.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": -2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -0.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 1.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": -2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -2.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 2.556
+                    }
+                  ]
+                },
+                {
+                  "type": "structure",
+                  "children": [
+                    {
+                      "name": "X",
+                      "type": "number",
+                      "value": -2.51
+                    },
+                    {
+                      "name": "Y",
+                      "type": "number",
+                      "value": -4.0
+                    },
+                    {
+                      "name": "Z",
+                      "type": "number",
+                      "value": 1.556
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "StarboardN",
+              "type": "number",
+              "value": 4
+            },
+            {
+              "name": "PortN",
+              "type": "number",
+              "value": 4
+            },
+            {
+              "name": "Height",
+              "type": "number",
+              "value": 8.089
+            },
+            {
+              "name": "Length",
+              "type": "number",
+              "value": 16.0
             }
           ]
         }
@@ -2494,6 +2698,11 @@
           "value": 0
         },
         {
+          "name": "Zc",
+          "type": "number",
+          "value": 0
+        },
+        {
           "name": "RefDepth",
           "type": "number",
           "value": 0
@@ -2519,12 +2728,57 @@
           "value": 0
         },
         {
+          "name": "ApproachDur",
+          "type": "number",
+          "value": 0
+        },
+        {
           "name": "TagX",
           "type": "number",
           "value": 0
         },
         {
           "name": "TagY",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "RA",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "RB",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "RC",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "DZ",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "Y1",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "Z1",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "X2",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "Z2",
           "type": "number",
           "value": 0
         }
@@ -3527,9 +3781,9 @@
           "tags": "",
           "content": {
             "modelResourceName": "sloop_model",
-            "width": 130,
-            "height": 416,
-            "depth": 210,
+            "width": 150,
+            "height": 481,
+            "depth": 242,
             "rotationX": 90,
             "rotationY": 0,
             "rotationZ": 0,
@@ -4960,6 +5214,36 @@
               "name": "EH",
               "type": "number",
               "value": 0
+            },
+            {
+              "name": "GX",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "GY",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "GZ",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "Launched",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "Long",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "Arc",
+              "type": "number",
+              "value": 0
             }
           ],
           "effects": [],
@@ -5946,9 +6230,9 @@
           "tags": "",
           "content": {
             "modelResourceName": "sloop_model",
-            "width": 130,
-            "height": 416,
-            "depth": 210,
+            "width": 150,
+            "height": 481,
+            "depth": 242,
             "rotationX": 90,
             "rotationY": 0,
             "rotationZ": 0,
@@ -8402,7 +8686,7 @@
                     "EnemyShip3D",
                     "Object3D",
                     "=",
-                    "4 * sin(TimeFromStart() * 1.4 + 1) - 7 * EnemyRecoil + 2.5 * EnemyHit * sin(TimeFromStart() * 47) - (255 - EnemyShip.Opacity()) * 0.12"
+                    "3 * sin(TimeFromStart() * 1.4 + 1) - 4 * EnemyRecoil + 2 * EnemyHit * sin(TimeFromStart() * 47) - (255 - EnemyShip.Opacity()) * 0.12"
                   ]
                 },
                 {
@@ -8504,7 +8788,7 @@
                     "PlayerShip",
                     "Object3D",
                     "=",
-                    "4 * sin(TimeFromStart() * 1.6) + 7 * PlayerRecoil + 2.5 * PlayerHit * sin(TimeFromStart() * 45)"
+                    "3 * sin(TimeFromStart() * 1.6) + 4 * PlayerRecoil + 2 * PlayerHit * sin(TimeFromStart() * 45)"
                   ]
                 },
                 {
@@ -11686,7 +11970,7 @@
                       "parameters": [
                         "EnemyStartX",
                         "=",
-                        "X0 + Config.RefWidth * (1 - Config.ShipXFrac + 0.04) + 160"
+                        "X0 + Config.RefWidth * (1 - Config.ShipXFrac + 0.04)"
                       ]
                     },
                     {
@@ -11706,7 +11990,7 @@
                       "parameters": [
                         "EnemyStartY",
                         "=",
-                        "ShipCY - ShipH * 0.15 - Config.ApproachDist"
+                        "(LayoutH / 2 - Config.CamZ / tan(ToRad(max(5, Config.CamPitch - Config.CamFov / 2)))) - ShipH * 0.75"
                       ]
                     },
                     {
@@ -11717,6 +12001,16 @@
                         "EnemyCY",
                         "=",
                         "EnemyStartY"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "ApproachDur",
+                        "=",
+                        "(ShipCY - ShipH * 0.15 - EnemyStartY) / Config.DriftSpeed"
                       ]
                     },
                     {
@@ -11987,6 +12281,19 @@
           "folded": false,
           "events": [
             {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "We are faster: the ship we catch up with slides down the screen at Config.DriftSpeed\nuntil it is alongside, holds there during the encounter, then (unless sunk) keeps\ndrifting back at the same speed and leaves through the bottom of the screen.",
+              "comment2": ""
+            },
+            {
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [],
               "actions": [
@@ -12026,7 +12333,7 @@
                   "parameters": [
                     "ApproachP",
                     "=",
-                    "min(1, Voyage.StateTime / Config.ApproachTime)"
+                    "min(1, Voyage.StateTime / max(0.1, ApproachDur))"
                   ]
                 },
                 {
@@ -12036,7 +12343,7 @@
                   "parameters": [
                     "Ease",
                     "=",
-                    "1 - pow(1 - ApproachP, 3)"
+                    "ApproachP"
                   ]
                 },
                 {
@@ -12056,7 +12363,7 @@
                   "parameters": [
                     "EnemyCY",
                     "=",
-                    "lerp(EnemyStartY, ShipCY - ShipH * 0.15, Ease)"
+                    "lerp(EnemyStartY, ShipCY - ShipH * 0.15, ApproachP)"
                   ]
                 },
                 {
@@ -12066,7 +12373,7 @@
                   "parameters": [
                     "EnemyShip",
                     "=",
-                    "-10 * (1 - Ease) + 2 * sin(TimeFromStart() * 1.4)"
+                    "2 * sin(TimeFromStart() * 1.4)"
                   ]
                 }
               ],
@@ -12094,7 +12401,7 @@
                   "parameters": [
                     "Voyage.StateTime",
                     ">=",
-                    "Config.ApproachTime"
+                    "ApproachDur"
                   ]
                 }
               ],
@@ -12378,18 +12685,8 @@
                   },
                   "parameters": [
                     "EnemyCY",
-                    "-",
-                    "TimeDelta() * 400"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetNumberVariable"
-                  },
-                  "parameters": [
-                    "EnemyCX",
                     "+",
-                    "TimeDelta() * 30"
+                    "Config.DriftSpeed * TimeDelta()"
                   ]
                 }
               ],
@@ -12429,7 +12726,7 @@
                   "parameters": [
                     "EnemyCY",
                     "+",
-                    "TimeDelta() * 320"
+                    "Config.DriftSpeed * TimeDelta()"
                   ]
                 }
               ],
@@ -12480,6 +12777,16 @@
                     "EnemyShip",
                     "+",
                     "TimeDelta() * 25"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SetNumberVariable"
+                  },
+                  "parameters": [
+                    "EnemyCY",
+                    "+",
+                    "Config.DriftSpeed * TimeDelta()"
                   ]
                 }
               ],
@@ -12603,8 +12910,8 @@
                   },
                   "parameters": [
                     "EnemyCY",
-                    "<",
-                    "ShipCY - ShipH * 0.15 - Config.ApproachDist - 300"
+                    ">",
+                    "LayoutH / 2 + ShipH * 0.6"
                   ]
                 }
               ],
@@ -12683,7 +12990,7 @@
                   "parameters": [
                     "EnemyCY",
                     ">",
-                    "LayoutH / 2 + ShipH"
+                    "LayoutH / 2 + ShipH * 0.6"
                   ]
                 }
               ],
@@ -14335,7 +14642,7 @@
             "textG": 0,
             "textR": 0
           },
-          "comment": "COMBAT MANAGER. Cannons fire automatically on reload timers. Every ball's\nhit / damage / crew / sail effect is rolled by logic at the moment of firing;\nthe CannonBall object is only a visual and applies its stored result when it\nlands, and only while the state is still COMBAT. Leaving COMBAT deletes all\nballs in flight, so nothing can land after the fight is decided.\nSpawned objects (CannonBall, Fx, DamageText) are deleted when done; the GDevelop\nruntime recycles deleted instances, so this acts as a pool.\n3D: balls fly from the sloop's real gun ports along a 3D arc; everything\nspawned here lives on the FX overlay layer and is projected from (CX, CY, H).\n3D: balls fly from the sloop's real gun ports along a 3D arc; everything\nspawned here lives on the FX overlay layer and is projected from (CX, CY, H).",
+          "comment": "COMBAT MANAGER. Cannons fire automatically on reload timers. Every ball's\nhit / damage / crew / sail effect is rolled by logic at the moment of firing;\nthe CannonBall object is only a visual and applies its stored result when it\nlands, and only while the state is still COMBAT. Leaving COMBAT deletes all\nballs in flight, so nothing can land after the fight is decided.\nSpawned objects (CannonBall, Fx, DamageText) are deleted when done; the GDevelop\nruntime recycles deleted instances, so this acts as a pool.\n3D: balls fly from the sloop's real gun ports along a 3D arc; everything\nspawned here lives on the FX overlay layer and is projected from (CX, CY, H).",
           "comment2": ""
         },
         {
@@ -14359,7 +14666,17 @@
               "parameters": [
                 "U",
                 "=",
-                "Config.ShipLength / 16"
+                "Config.ShipLength / ShipGuns.Sloop.Length"
+              ]
+            },
+            {
+              "type": {
+                "value": "SetNumberVariable"
+              },
+              "parameters": [
+                "Zc",
+                "=",
+                "U * ShipGuns.Sloop.Height / 2"
               ]
             },
             {
@@ -15630,43 +15947,13 @@
                   "actions": [
                     {
                       "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "MX",
-                        "=",
-                        "ShipCX + 1 * U * 2.55"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "MY",
-                        "=",
-                        "ShipCY + U * (2 - 2 * mod(BallIndex, 4))"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberVariable"
-                      },
-                      "parameters": [
-                        "MH",
-                        "=",
-                        "Config.ShipZ + U * (1.82 + 0.5 * cos(3.14159 * mod(BallIndex, 4)))"
-                      ]
-                    },
-                    {
-                      "type": {
                         "value": "Create"
                       },
                       "parameters": [
                         "",
                         "CannonBall",
-                        "MX",
-                        "MY",
+                        "-1000",
+                        "-1000",
                         "\"FX\""
                       ]
                     },
@@ -15698,6 +15985,50 @@
                         "Target",
                         "=",
                         "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "Launched",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "GX",
+                        "=",
+                        "U * ShipGuns.Sloop.Starboard[mod(BallIndex, ShipGuns.Sloop.StarboardN)].X"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "GY",
+                        "=",
+                        "U * ShipGuns.Sloop.Starboard[mod(BallIndex, ShipGuns.Sloop.StarboardN)].Y"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "GZ",
+                        "=",
+                        "U * ShipGuns.Sloop.Starboard[mod(BallIndex, ShipGuns.Sloop.StarboardN)].Z"
                       ]
                     },
                     {
@@ -15750,31 +16081,9 @@
                       },
                       "parameters": [
                         "CannonBall",
-                        "SX",
+                        "Long",
                         "=",
-                        "MX"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "CannonBall",
-                        "SY",
-                        "=",
-                        "MY"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "CannonBall",
-                        "SH",
-                        "=",
-                        "MH"
+                        "(1 - CannonBall.Hit) * floor(RandomFloat(1) * 2)"
                       ]
                     },
                     {
@@ -15785,7 +16094,7 @@
                         "CannonBall",
                         "EX",
                         "=",
-                        "EnemyCX - 1 * (U * 2.3 + (1 - CannonBall.Hit) * RandomInRange(30, 170))"
+                        "EnemyCX - 1 * ((1 - CannonBall.Long) * U * 2.3 + (1 - CannonBall.Hit) * (1 - CannonBall.Long) * RandomInRange(30, 170)) + CannonBall.Long * RandomInRange(-40, 40)"
                       ]
                     },
                     {
@@ -15796,7 +16105,7 @@
                         "CannonBall",
                         "EY",
                         "=",
-                        "EnemyCY + RandomFloatInRange(-0.3, 0.3) * ShipH * (2 - CannonBall.Hit)"
+                        "EnemyCY + (1 - CannonBall.Long) * RandomFloatInRange(-0.3, 0.3) * ShipH * (2 - CannonBall.Hit) + CannonBall.Long * (2 * floor(RandomFloat(1) * 2) - 1) * (ShipH * 0.55 + RandomInRange(20, 120))"
                       ]
                     },
                     {
@@ -15808,6 +16117,17 @@
                         "EH",
                         "=",
                         "CannonBall.Hit * (Config.ShipZ + U * RandomFloatInRange(0.9, 2.4)) - (1 - CannonBall.Hit) * 6"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "Arc",
+                        "=",
+                        "40 + CannonBall.Long * 90"
                       ]
                     },
                     {
@@ -15838,308 +16158,6 @@
                       },
                       "parameters": [
                         "CannonBall",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Create"
-                      },
-                      "parameters": [
-                        "",
-                        "Fx",
-                        "MX",
-                        "MY",
-                        "\"FX\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetZOrder"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "=",
-                        "40"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetAnimationName"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "\"Flash\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "CX",
-                        "=",
-                        "MX"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "CY",
-                        "=",
-                        "MY"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "H",
-                        "=",
-                        "MH"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Life",
-                        "=",
-                        "0.16"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Age",
-                        "=",
-                        "-(BallIndex * Config.VolleyStagger)"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "BaseScale",
-                        "=",
-                        "0.7"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Grow",
-                        "=",
-                        "2"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vx",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vy",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vh",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Opacity"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Create"
-                      },
-                      "parameters": [
-                        "",
-                        "Fx",
-                        "MX + 1 * 18",
-                        "MY",
-                        "\"FX\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetZOrder"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "=",
-                        "40"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetAnimationName"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "\"Smoke\""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "CX",
-                        "=",
-                        "MX + 1 * 18"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "CY",
-                        "=",
-                        "MY"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "H",
-                        "=",
-                        "MH"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Life",
-                        "=",
-                        "1.2"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Age",
-                        "=",
-                        "-(BallIndex * Config.VolleyStagger)"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "BaseScale",
-                        "=",
-                        "0.6"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Grow",
-                        "=",
-                        "0.9"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vx",
-                        "=",
-                        "1 * 14"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vy",
-                        "=",
-                        "0"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "SetNumberObjectVariable"
-                      },
-                      "parameters": [
-                        "Fx",
-                        "Vh",
-                        "=",
-                        "24"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Opacity"
-                      },
-                      "parameters": [
-                        "Fx",
                         "=",
                         "0"
                       ]
@@ -16667,43 +16685,13 @@
                       "actions": [
                         {
                           "type": {
-                            "value": "SetNumberVariable"
-                          },
-                          "parameters": [
-                            "MX",
-                            "=",
-                            "EnemyCX + -1 * U * 2.55"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberVariable"
-                          },
-                          "parameters": [
-                            "MY",
-                            "=",
-                            "EnemyCY + U * (2 - 2 * mod(BallIndex, 4))"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberVariable"
-                          },
-                          "parameters": [
-                            "MH",
-                            "=",
-                            "Config.ShipZ + U * (1.82 + 0.5 * cos(3.14159 * mod(BallIndex, 4)))"
-                          ]
-                        },
-                        {
-                          "type": {
                             "value": "Create"
                           },
                           "parameters": [
                             "",
                             "CannonBall",
-                            "MX",
-                            "MY",
+                            "-1000",
+                            "-1000",
                             "\"FX\""
                           ]
                         },
@@ -16735,6 +16723,50 @@
                             "Target",
                             "=",
                             "0"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "CannonBall",
+                            "Launched",
+                            "=",
+                            "0"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "CannonBall",
+                            "GX",
+                            "=",
+                            "U * ShipGuns.Sloop.Port[mod(BallIndex, ShipGuns.Sloop.PortN)].X"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "CannonBall",
+                            "GY",
+                            "=",
+                            "U * ShipGuns.Sloop.Port[mod(BallIndex, ShipGuns.Sloop.PortN)].Y"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "CannonBall",
+                            "GZ",
+                            "=",
+                            "U * ShipGuns.Sloop.Port[mod(BallIndex, ShipGuns.Sloop.PortN)].Z"
                           ]
                         },
                         {
@@ -16787,31 +16819,9 @@
                           },
                           "parameters": [
                             "CannonBall",
-                            "SX",
+                            "Long",
                             "=",
-                            "MX"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "CannonBall",
-                            "SY",
-                            "=",
-                            "MY"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "CannonBall",
-                            "SH",
-                            "=",
-                            "MH"
+                            "(1 - CannonBall.Hit) * floor(RandomFloat(1) * 2)"
                           ]
                         },
                         {
@@ -16822,7 +16832,7 @@
                             "CannonBall",
                             "EX",
                             "=",
-                            "ShipCX - -1 * (U * 2.3 + (1 - CannonBall.Hit) * RandomInRange(30, 170))"
+                            "ShipCX - -1 * ((1 - CannonBall.Long) * U * 2.3 + (1 - CannonBall.Hit) * (1 - CannonBall.Long) * RandomInRange(30, 170)) + CannonBall.Long * RandomInRange(-40, 40)"
                           ]
                         },
                         {
@@ -16833,7 +16843,7 @@
                             "CannonBall",
                             "EY",
                             "=",
-                            "ShipCY + RandomFloatInRange(-0.3, 0.3) * ShipH * (2 - CannonBall.Hit)"
+                            "ShipCY + (1 - CannonBall.Long) * RandomFloatInRange(-0.3, 0.3) * ShipH * (2 - CannonBall.Hit) + CannonBall.Long * (2 * floor(RandomFloat(1) * 2) - 1) * (ShipH * 0.55 + RandomInRange(20, 120))"
                           ]
                         },
                         {
@@ -16845,6 +16855,17 @@
                             "EH",
                             "=",
                             "CannonBall.Hit * (Config.ShipZ + U * RandomFloatInRange(0.9, 2.4)) - (1 - CannonBall.Hit) * 6"
+                          ]
+                        },
+                        {
+                          "type": {
+                            "value": "SetNumberObjectVariable"
+                          },
+                          "parameters": [
+                            "CannonBall",
+                            "Arc",
+                            "=",
+                            "40 + CannonBall.Long * 90"
                           ]
                         },
                         {
@@ -16875,308 +16896,6 @@
                           },
                           "parameters": [
                             "CannonBall",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "Create"
-                          },
-                          "parameters": [
-                            "",
-                            "Fx",
-                            "MX",
-                            "MY",
-                            "\"FX\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetZOrder"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "=",
-                            "40"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetAnimationName"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "\"Flash\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "CX",
-                            "=",
-                            "MX"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "CY",
-                            "=",
-                            "MY"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "H",
-                            "=",
-                            "MH"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Life",
-                            "=",
-                            "0.16"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Age",
-                            "=",
-                            "-(BallIndex * Config.VolleyStagger)"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "BaseScale",
-                            "=",
-                            "0.7"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Grow",
-                            "=",
-                            "2"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vx",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vy",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vh",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "Opacity"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "Create"
-                          },
-                          "parameters": [
-                            "",
-                            "Fx",
-                            "MX + -1 * 18",
-                            "MY",
-                            "\"FX\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetZOrder"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "=",
-                            "40"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetAnimationName"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "\"Smoke\""
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "CX",
-                            "=",
-                            "MX + -1 * 18"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "CY",
-                            "=",
-                            "MY"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "H",
-                            "=",
-                            "MH"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Life",
-                            "=",
-                            "1.2"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Age",
-                            "=",
-                            "-(BallIndex * Config.VolleyStagger)"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "BaseScale",
-                            "=",
-                            "0.6"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Grow",
-                            "=",
-                            "0.9"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vx",
-                            "=",
-                            "-1 * 14"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vy",
-                            "=",
-                            "0"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "SetNumberObjectVariable"
-                          },
-                          "parameters": [
-                            "Fx",
-                            "Vh",
-                            "=",
-                            "24"
-                          ]
-                        },
-                        {
-                          "type": {
-                            "value": "Opacity"
-                          },
-                          "parameters": [
-                            "Fx",
                             "=",
                             "0"
                           ]
@@ -17259,6 +16978,665 @@
               "events": []
             },
             {
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "Launch: the ball's turn in the ripple has come -> place it at its gun's muzzle.",
+              "comment2": ""
+            },
+            {
+              "type": "BuiltinCommonInstructions::ForEach",
+              "object": "CannonBall",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "NumberObjectVariable"
+                  },
+                  "parameters": [
+                    "CannonBall",
+                    "Launched",
+                    "=",
+                    "0"
+                  ]
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "NumberObjectVariable"
+                  },
+                  "parameters": [
+                    "CannonBall",
+                    "T",
+                    ">=",
+                    "0"
+                  ]
+                }
+              ],
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "Target",
+                        "=",
+                        "1"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RA",
+                        "=",
+                        "ToRad(PlayerShip.Object3D::RotationX())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RB",
+                        "=",
+                        "ToRad(PlayerShip.Object3D::RotationY())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RC",
+                        "=",
+                        "ToRad(PlayerShip.Angle())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "DZ",
+                        "=",
+                        "CannonBall.GZ - Zc"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Y1",
+                        "=",
+                        "CannonBall.GY * cos(RA) - DZ * sin(RA)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Z1",
+                        "=",
+                        "CannonBall.GY * sin(RA) + DZ * cos(RA)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "X2",
+                        "=",
+                        "CannonBall.GX * cos(RB) + Z1 * sin(RB)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Z2",
+                        "=",
+                        "-CannonBall.GX * sin(RB) + Z1 * cos(RB)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MX",
+                        "=",
+                        "PlayerShip.X() + X2 * cos(RC) - Y1 * sin(RC)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MY",
+                        "=",
+                        "PlayerShip.Y() + X2 * sin(RC) + Y1 * cos(RC)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MH",
+                        "=",
+                        "PlayerShip.Object3D::Z() + Zc + Z2"
+                      ]
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "NumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "Target",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RA",
+                        "=",
+                        "ToRad(EnemyShip3D.Object3D::RotationX())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RB",
+                        "=",
+                        "ToRad(EnemyShip3D.Object3D::RotationY())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "RC",
+                        "=",
+                        "ToRad(EnemyShip3D.Angle())"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "DZ",
+                        "=",
+                        "CannonBall.GZ - Zc"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Y1",
+                        "=",
+                        "CannonBall.GY * cos(RA) - DZ * sin(RA)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Z1",
+                        "=",
+                        "CannonBall.GY * sin(RA) + DZ * cos(RA)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "X2",
+                        "=",
+                        "CannonBall.GX * cos(RB) + Z1 * sin(RB)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "Z2",
+                        "=",
+                        "-CannonBall.GX * sin(RB) + Z1 * cos(RB)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MX",
+                        "=",
+                        "EnemyShip3D.X() + X2 * cos(RC) - Y1 * sin(RC)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MY",
+                        "=",
+                        "EnemyShip3D.Y() + X2 * sin(RC) + Y1 * cos(RC)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberVariable"
+                      },
+                      "parameters": [
+                        "MH",
+                        "=",
+                        "EnemyShip3D.Object3D::Z() + Zc + Z2"
+                      ]
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "SX",
+                        "=",
+                        "MX"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "SY",
+                        "=",
+                        "MY"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "SH",
+                        "=",
+                        "MH"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "CannonBall",
+                        "Launched",
+                        "=",
+                        "1"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "Fx",
+                        "MX",
+                        "MY",
+                        "\"FX\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetZOrder"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "=",
+                        "40"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetAnimationName"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "\"Flash\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "CX",
+                        "=",
+                        "MX"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "CY",
+                        "=",
+                        "MY"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "H",
+                        "=",
+                        "MH"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Life",
+                        "=",
+                        "0.16"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Age",
+                        "=",
+                        "-(0)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "BaseScale",
+                        "=",
+                        "0.6"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Grow",
+                        "=",
+                        "2"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vx",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vy",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vh",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Opacity"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Create"
+                      },
+                      "parameters": [
+                        "",
+                        "Fx",
+                        "MX",
+                        "MY",
+                        "\"FX\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetZOrder"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "=",
+                        "40"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetAnimationName"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "\"Smoke\""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "CX",
+                        "=",
+                        "MX"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "CY",
+                        "=",
+                        "MY"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "H",
+                        "=",
+                        "MH"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Life",
+                        "=",
+                        "1.2"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Age",
+                        "=",
+                        "-(0)"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "BaseScale",
+                        "=",
+                        "0.5"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Grow",
+                        "=",
+                        "0.9"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vx",
+                        "=",
+                        "(2 * CannonBall.Target - 1) * 16"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vy",
+                        "=",
+                        "0"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "SetNumberObjectVariable"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "Vh",
+                        "=",
+                        "22"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "Opacity"
+                      },
+                      "parameters": [
+                        "Fx",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "events": []
+                }
+              ]
+            },
+            {
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -17271,6 +17649,18 @@
                     "T",
                     ">=",
                     "0"
+                  ]
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "NumberObjectVariable"
+                  },
+                  "parameters": [
+                    "CannonBall",
+                    "Launched",
+                    "=",
+                    "1"
                   ]
                 }
               ],
@@ -17292,7 +17682,7 @@
                   "parameters": [
                     "CannonBall",
                     "=",
-                    "0.9 * (RefDepth / max(1, (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + 45 * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))))"
+                    "0.9 * (RefDepth / max(1, (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + CannonBall.Arc * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))))"
                   ]
                 },
                 {
@@ -17302,9 +17692,9 @@
                   "parameters": [
                     "CannonBall",
                     "=",
-                    "(LayoutW / 2 + ((lerp(CannonBall.SX, CannonBall.EX, min(1, CannonBall.T / CannonBall.Dur))) - LayoutW / 2) * CamF / (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + 45 * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))) - CannonBall.Width() / 2",
+                    "(LayoutW / 2 + ((lerp(CannonBall.SX, CannonBall.EX, min(1, CannonBall.T / CannonBall.Dur))) - LayoutW / 2) * CamF / (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + CannonBall.Arc * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))) - CannonBall.Width() / 2",
                     "=",
-                    "(LayoutH / 2 - (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * cos(ToRad(Config.CamPitch)) + (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + 45 * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * sin(ToRad(Config.CamPitch))) * CamF / (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + 45 * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))) - CannonBall.Height() / 2"
+                    "(LayoutH / 2 - (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * cos(ToRad(Config.CamPitch)) + (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + CannonBall.Arc * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * sin(ToRad(Config.CamPitch))) * CamF / (-((lerp(CannonBall.SY, CannonBall.EY, min(1, CannonBall.T / CannonBall.Dur))) - LayoutH / 2) * sin(ToRad(Config.CamPitch)) - (((lerp(CannonBall.SH, CannonBall.EH, min(1, CannonBall.T / CannonBall.Dur)) + CannonBall.Arc * sin(3.14159 * min(1, CannonBall.T / CannonBall.Dur)))) - Config.CamZ) * cos(ToRad(Config.CamPitch)))) - CannonBall.Height() / 2"
                   ]
                 }
               ],

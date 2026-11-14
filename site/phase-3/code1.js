@@ -997,13 +997,15 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyShip"), gdjs.SailingCode.GDEnemyShi
     gdjs.SailingCode.GDEnemyShipObjects1[i].hide(false);
 }
 }
-{runtimeScene.getScene().getVariables().getFromIndex(18).setNumber(runtimeScene.getScene().getVariables().getFromIndex(2).getAsNumber() + runtimeScene.getGame().getVariables().getFromIndex(0).getChild("RefWidth").getAsNumber() * (1 - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipXFrac").getAsNumber() + 0.04) + 160);
+{runtimeScene.getScene().getVariables().getFromIndex(18).setNumber(runtimeScene.getScene().getVariables().getFromIndex(2).getAsNumber() + runtimeScene.getGame().getVariables().getFromIndex(0).getChild("RefWidth").getAsNumber() * (1 - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipXFrac").getAsNumber() + 0.04));
 }
 {runtimeScene.getScene().getVariables().getFromIndex(16).setNumber(runtimeScene.getScene().getVariables().getFromIndex(18).getAsNumber());
 }
-{runtimeScene.getScene().getVariables().getFromIndex(67).setNumber(runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15 - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ApproachDist").getAsNumber());
+{runtimeScene.getScene().getVariables().getFromIndex(68).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber() / Math.tan(gdjs.toRad(Math.max(5, runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber() - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamFov").getAsNumber() / 2)))) - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.75);
 }
-{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(runtimeScene.getScene().getVariables().getFromIndex(67).getAsNumber());
+{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber());
+}
+{runtimeScene.getScene().getVariables().getFromIndex(69).setNumber((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15 - runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber()) / runtimeScene.getGame().getVariables().getFromIndex(0).getChild("DriftSpeed").getAsNumber());
 }
 {runtimeScene.getScene().getVariables().getFromIndex(29).setNumber(runtimeScene.getGame().getVariables().getFromIndex(5).getChild("Hull").getAsNumber() / Math.max(0.1, runtimeScene.getScene().getVariables().getFromIndex(44).getChild("Cannons").getAsNumber() * runtimeScene.getScene().getVariables().getFromIndex(44).getChild("CannonDamage").getAsNumber() * runtimeScene.getScene().getVariables().getFromIndex(44).getChild("Accuracy").getAsNumber() / runtimeScene.getScene().getVariables().getFromIndex(44).getChild("ReloadTime").getAsNumber()));
 }
@@ -1108,16 +1110,16 @@ isConditionTrue_0 = false;
 }
 if (isConditionTrue_0) {
 gdjs.copyArray(runtimeScene.getObjects("EnemyShip"), gdjs.SailingCode.GDEnemyShipObjects2);
-{runtimeScene.getScene().getVariables().getFromIndex(20).setNumber(Math.min(1, runtimeScene.getGame().getVariables().getFromIndex(5).getChild("StateTime").getAsNumber() / runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ApproachTime").getAsNumber()));
+{runtimeScene.getScene().getVariables().getFromIndex(20).setNumber(Math.min(1, runtimeScene.getGame().getVariables().getFromIndex(5).getChild("StateTime").getAsNumber() / Math.max(0.1, runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber())));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(21).setNumber(1 - Math.pow(1 - runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber(), 3));
+{runtimeScene.getScene().getVariables().getFromIndex(21).setNumber(runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber());
 }
 {runtimeScene.getScene().getVariables().getFromIndex(16).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(18).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(19).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(21).getAsNumber()));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(67).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15, runtimeScene.getScene().getVariables().getFromIndex(21).getAsNumber()));
+{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15, runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber()));
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyShipObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDEnemyShipObjects2[i].setAngle(-(10) * (1 - runtimeScene.getScene().getVariables().getFromIndex(21).getAsNumber()) + 2 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.4));
+    gdjs.SailingCode.GDEnemyShipObjects2[i].setAngle(2 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.4));
 }
 }
 }
@@ -1134,7 +1136,7 @@ isConditionTrue_0 = false;
 }
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = (runtimeScene.getGame().getVariables().getFromIndex(5).getChild("StateTime").getAsNumber() >= runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ApproachTime").getAsNumber());
+{isConditionTrue_0 = (runtimeScene.getGame().getVariables().getFromIndex(5).getChild("StateTime").getAsNumber() >= runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber());
 }
 }
 if (isConditionTrue_0) {
@@ -1262,9 +1264,7 @@ isConditionTrue_0 = false;
 }
 }
 if (isConditionTrue_0) {
-{runtimeScene.getScene().getVariables().getFromIndex(17).sub(gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 400);
-}
-{runtimeScene.getScene().getVariables().getFromIndex(16).add(gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 30);
+{runtimeScene.getScene().getVariables().getFromIndex(17).add(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("DriftSpeed").getAsNumber() * gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene));
 }
 }
 
@@ -1284,7 +1284,7 @@ isConditionTrue_0 = false;
 }
 }
 if (isConditionTrue_0) {
-{runtimeScene.getScene().getVariables().getFromIndex(17).add(gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 320);
+{runtimeScene.getScene().getVariables().getFromIndex(17).add(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("DriftSpeed").getAsNumber() * gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene));
 }
 }
 
@@ -1312,6 +1312,8 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyShip"), gdjs.SailingCode.GDEnemyShi
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyShipObjects2.length ;i < len;++i) {
     gdjs.SailingCode.GDEnemyShipObjects2[i].setAngle(gdjs.SailingCode.GDEnemyShipObjects2[i].getAngle() + (gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 25));
 }
+}
+{runtimeScene.getScene().getVariables().getFromIndex(17).add(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("DriftSpeed").getAsNumber() * gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene));
 }
 }
 
@@ -1372,7 +1374,7 @@ isConditionTrue_0 = false;
 }
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = (runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() < runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15 - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ApproachDist").getAsNumber() - 300);
+{isConditionTrue_0 = (runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() > runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.6);
 }
 }
 }
@@ -1406,7 +1408,7 @@ isConditionTrue_0 = false;
 }
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = (runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() > runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber());
+{isConditionTrue_0 = (runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() > runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.6);
 }
 }
 }
@@ -2398,9 +2400,9 @@ let isConditionTrue_0 = false;
 }
 {runtimeScene.getScene().getVariables().getFromIndex(56).setNumber(Math.max(0, runtimeScene.getScene().getVariables().getFromIndex(56).getAsNumber() - gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 3));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(65).setNumber(Math.max(0, runtimeScene.getScene().getVariables().getFromIndex(65).getAsNumber() - gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 3));
-}
 {runtimeScene.getScene().getVariables().getFromIndex(66).setNumber(Math.max(0, runtimeScene.getScene().getVariables().getFromIndex(66).getAsNumber() - gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 3));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(67).setNumber(Math.max(0, runtimeScene.getScene().getVariables().getFromIndex(67).getAsNumber() - gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene) * 3));
 }
 }
 
@@ -2408,8 +2410,6 @@ let isConditionTrue_0 = false;
 
 
 };gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects = Hashtable.newFrom({"CannonBall": gdjs.SailingCode.GDCannonBallObjects3});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects3});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects3});
 gdjs.SailingCode.eventsList25 = function(runtimeScene) {
 
 };gdjs.SailingCode.eventsList26 = function(runtimeScene) {
@@ -2421,20 +2421,12 @@ const repeatCount3 = runtimeScene.getScene().getVariables().getFromIndex(48).get
 for (let repeatIndex3 = 0;repeatIndex3 < repeatCount3;++repeatIndex3) {
 gdjs.SailingCode.GDCannonBallObjects3.length = 0;
 
-gdjs.SailingCode.GDFxObjects3.length = 0;
-
 
 runtimeScene.getScene().getVariables().getFromIndex(49).setNumber(repeatIndex3);
 let isConditionTrue_0 = false;
 if (true)
 {
-{runtimeScene.getScene().getVariables().getFromIndex(50).setNumber(runtimeScene.getScene().getVariables().getFromIndex(5).getAsNumber() + 1 * runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.55);
-}
-{runtimeScene.getScene().getVariables().getFromIndex(51).setNumber(runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * (2 - 2 * gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), 4)));
-}
-{runtimeScene.getScene().getVariables().getFromIndex(64).setNumber(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * (1.82 + 0.5 * Math.cos(3.14159 * gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), 4))));
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
+{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects, -(1000), -(1000), "FX");
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].setZOrder(35);
@@ -2446,6 +2438,22 @@ if (true)
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(0)).setNumber(1);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(16)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(13)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Starboard").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("StarboardN").getAsNumber())).getChild("X").getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(14)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Starboard").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("StarboardN").getAsNumber())).getChild("Y").getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(15)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Starboard").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("StarboardN").getAsNumber())).getChild("Z").getAsNumber());
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
@@ -2465,27 +2473,23 @@ if (true)
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17)).setNumber((1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * Math.floor(gdjs.randomFloat(1) * 2));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(6)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(7)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(16).getAsNumber() - 1 * ((1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.3 + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * gdjs.randomInRange(30, 170)) + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * gdjs.randomInRange(-(40), 40));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(11)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(7)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(16).getAsNumber() - 1 * (runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.3 + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * gdjs.randomInRange(30, 170)));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() + gdjs.randomFloatInRange(-(0.3), 0.3) * runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * (2 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()));
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * gdjs.randomFloatInRange(-(0.3), 0.3) * runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * (2 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * (2 * Math.floor(gdjs.randomFloat(1) * 2) - 1) * (runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.55 + gdjs.randomInRange(20, 120)));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(12)).setNumber(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber() * (runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * gdjs.randomFloatInRange(0.9, 2.4)) - (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * 6);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(18)).setNumber(40 + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * 90);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
@@ -2498,114 +2502,6 @@ if (true)
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].setOpacity(0);
-}
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setZOrder(40);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setAnimationName("Flash");
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(1)).setNumber(0.16);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(0)).setNumber(-((runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(0).getChild("VolleyStagger").getAsNumber())));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(3)).setNumber(0.7);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(2)).setNumber(2);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(6)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(7)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(9)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setOpacity(0);
-}
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber() + 1 * 18, runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setZOrder(40);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setAnimationName("Smoke");
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber() + 1 * 18);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(1)).setNumber(1.2);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(0)).setNumber(-((runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(0).getChild("VolleyStagger").getAsNumber())));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(3)).setNumber(0.6);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(2)).setNumber(0.9);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(6)).setNumber(1 * 14);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(7)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(9)).setNumber(24);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setOpacity(0);
 }
 }
 }
@@ -2713,8 +2609,6 @@ if (isConditionTrue_0) {
 
 
 };gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects = Hashtable.newFrom({"CannonBall": gdjs.SailingCode.GDCannonBallObjects3});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects3});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects3});
 gdjs.SailingCode.eventsList29 = function(runtimeScene) {
 
 };gdjs.SailingCode.eventsList30 = function(runtimeScene) {
@@ -2726,20 +2620,12 @@ const repeatCount3 = runtimeScene.getScene().getVariables().getFromIndex(48).get
 for (let repeatIndex3 = 0;repeatIndex3 < repeatCount3;++repeatIndex3) {
 gdjs.SailingCode.GDCannonBallObjects3.length = 0;
 
-gdjs.SailingCode.GDFxObjects3.length = 0;
-
 
 runtimeScene.getScene().getVariables().getFromIndex(49).setNumber(repeatIndex3);
 let isConditionTrue_0 = false;
 if (true)
 {
-{runtimeScene.getScene().getVariables().getFromIndex(50).setNumber(runtimeScene.getScene().getVariables().getFromIndex(16).getAsNumber() + -(1) * runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.55);
-}
-{runtimeScene.getScene().getVariables().getFromIndex(51).setNumber(runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * (2 - 2 * gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), 4)));
-}
-{runtimeScene.getScene().getVariables().getFromIndex(64).setNumber(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * (1.82 + 0.5 * Math.cos(3.14159 * gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), 4))));
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
+{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCannonBallObjects3Objects, -(1000), -(1000), "FX");
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].setZOrder(35);
@@ -2751,6 +2637,22 @@ if (true)
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(0)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(16)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(13)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Port").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("PortN").getAsNumber())).getChild("X").getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(14)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Port").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("PortN").getAsNumber())).getChild("Y").getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(15)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Port").getChild(gdjs.evtTools.common.mod(runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber(), runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("PortN").getAsNumber())).getChild("Z").getAsNumber());
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
@@ -2770,27 +2672,23 @@ if (true)
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17)).setNumber((1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * Math.floor(gdjs.randomFloat(1) * 2));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(6)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(7)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(5).getAsNumber() - -(1) * ((1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.3 + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * gdjs.randomInRange(30, 170)) + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * gdjs.randomInRange(-(40), 40));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(11)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(7)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(5).getAsNumber() - -(1) * (runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2.3 + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * gdjs.randomInRange(30, 170)));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + gdjs.randomFloatInRange(-(0.3), 0.3) * runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * (2 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()));
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber()) * gdjs.randomFloatInRange(-(0.3), 0.3) * runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * (2 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * (2 * Math.floor(gdjs.randomFloat(1) * 2) - 1) * (runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.55 + gdjs.randomInRange(20, 120)));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(12)).setNumber(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber() * (runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * gdjs.randomFloatInRange(0.9, 2.4)) - (1 - gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(1).getAsNumber()) * 6);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects3[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(18)).setNumber(40 + gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(17).getAsNumber() * 90);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
@@ -2803,114 +2701,6 @@ if (true)
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects3.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects3[i].setOpacity(0);
-}
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setZOrder(40);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setAnimationName("Flash");
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(1)).setNumber(0.16);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(0)).setNumber(-((runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(0).getChild("VolleyStagger").getAsNumber())));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(3)).setNumber(0.7);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(2)).setNumber(2);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(6)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(7)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(9)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setOpacity(0);
-}
-}
-{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects3Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber() + -(1) * 18, runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setZOrder(40);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setAnimationName("Smoke");
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber() + -(1) * 18);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber());
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(1)).setNumber(1.2);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(0)).setNumber(-((runtimeScene.getScene().getVariables().getFromIndex(49).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(0).getChild("VolleyStagger").getAsNumber())));
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(3)).setNumber(0.6);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(2)).setNumber(0.9);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(6)).setNumber(-(1) * 14);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(7)).setNumber(0);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].returnVariable(gdjs.SailingCode.GDFxObjects3[i].getVariables().getFromIndex(9)).setNumber(24);
-}
-}
-{for(var i = 0, len = gdjs.SailingCode.GDFxObjects3.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects3[i].setOpacity(0);
 }
 }
 }
@@ -3108,13 +2898,245 @@ if (isConditionTrue_0) {
 
 
 };gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
-gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
 gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
 gdjs.SailingCode.eventsList33 = function(runtimeScene) {
+
+{
+
+gdjs.copyArray(gdjs.SailingCode.GDCannonBallObjects3, gdjs.SailingCode.GDCannonBallObjects4);
+
+
+let isConditionTrue_0 = false;
+isConditionTrue_0 = false;
+for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects4.length;i<l;++i) {
+    if ( gdjs.SailingCode.GDCannonBallObjects4[i].getVariableNumber(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(0)) == 1 ) {
+        isConditionTrue_0 = true;
+        gdjs.SailingCode.GDCannonBallObjects4[k] = gdjs.SailingCode.GDCannonBallObjects4[i];
+        ++k;
+    }
+}
+gdjs.SailingCode.GDCannonBallObjects4.length = k;
+if (isConditionTrue_0) {
+/* Reuse gdjs.SailingCode.GDCannonBallObjects4 */
+gdjs.copyArray(runtimeScene.getObjects("PlayerShip"), gdjs.SailingCode.GDPlayerShipObjects4);
+{runtimeScene.getScene().getVariables().getFromIndex(72).setNumber(gdjs.toRad((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getBehavior("Object3D").getRotationX())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(73).setNumber(gdjs.toRad((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getBehavior("Object3D").getRotationY())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(74).setNumber(gdjs.toRad((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getAngle())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(75).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(15).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber());
+}
+{runtimeScene.getScene().getVariables().getFromIndex(76).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(14).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(75).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(77).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(14).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(75).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(78).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(13).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(77).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(79).setNumber(-(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(13).getAsNumber()) * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(77).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(50).setNumber((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getX()) + runtimeScene.getScene().getVariables().getFromIndex(78).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(76).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(51).setNumber((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getY()) + runtimeScene.getScene().getVariables().getFromIndex(78).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(76).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(65).setNumber((( gdjs.SailingCode.GDPlayerShipObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerShipObjects4[0].getBehavior("Object3D").getZ()) + runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(79).getAsNumber());
+}
+}
+
+}
+
+
+{
+
+gdjs.copyArray(gdjs.SailingCode.GDCannonBallObjects3, gdjs.SailingCode.GDCannonBallObjects4);
+
+
+let isConditionTrue_0 = false;
+isConditionTrue_0 = false;
+for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects4.length;i<l;++i) {
+    if ( gdjs.SailingCode.GDCannonBallObjects4[i].getVariableNumber(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(0)) == 0 ) {
+        isConditionTrue_0 = true;
+        gdjs.SailingCode.GDCannonBallObjects4[k] = gdjs.SailingCode.GDCannonBallObjects4[i];
+        ++k;
+    }
+}
+gdjs.SailingCode.GDCannonBallObjects4.length = k;
+if (isConditionTrue_0) {
+/* Reuse gdjs.SailingCode.GDCannonBallObjects4 */
+gdjs.copyArray(runtimeScene.getObjects("EnemyShip3D"), gdjs.SailingCode.GDEnemyShip3DObjects4);
+{runtimeScene.getScene().getVariables().getFromIndex(72).setNumber(gdjs.toRad((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getBehavior("Object3D").getRotationX())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(73).setNumber(gdjs.toRad((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getBehavior("Object3D").getRotationY())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(74).setNumber(gdjs.toRad((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getAngle())));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(75).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(15).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber());
+}
+{runtimeScene.getScene().getVariables().getFromIndex(76).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(14).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(75).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(77).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(14).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(75).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(72).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(78).setNumber(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(13).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(77).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(79).setNumber(-(((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(13).getAsNumber()) * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(77).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(73).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(50).setNumber((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getX()) + runtimeScene.getScene().getVariables().getFromIndex(78).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(76).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(51).setNumber((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getY()) + runtimeScene.getScene().getVariables().getFromIndex(78).getAsNumber() * Math.sin(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()) + runtimeScene.getScene().getVariables().getFromIndex(76).getAsNumber() * Math.cos(runtimeScene.getScene().getVariables().getFromIndex(74).getAsNumber()));
+}
+{runtimeScene.getScene().getVariables().getFromIndex(65).setNumber((( gdjs.SailingCode.GDEnemyShip3DObjects4.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShip3DObjects4[0].getBehavior("Object3D").getZ()) + runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(79).getAsNumber());
+}
+}
+
+}
+
+
+{
+
+
+let isConditionTrue_0 = false;
+{
+gdjs.copyArray(gdjs.SailingCode.GDCannonBallObjects3, gdjs.SailingCode.GDCannonBallObjects4);
+
+gdjs.SailingCode.GDFxObjects4.length = 0;
+
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects4[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects4[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(6)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects4[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(11)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(65).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDCannonBallObjects4[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects4[i].getVariables().getFromIndex(16)).setNumber(1);
+}
+}
+{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setZOrder(40);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setAnimationName("Flash");
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(65).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(1)).setNumber(0.16);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(0)).setNumber(-((0)));
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(3)).setNumber(0.6);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(2)).setNumber(2);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(6)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(7)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(9)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setOpacity(0);
+}
+}
+{gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects, runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber(), "FX");
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setZOrder(40);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setAnimationName("Smoke");
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(4)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(50).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(5)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(51).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(8)).setNumber(runtimeScene.getScene().getVariables().getFromIndex(65).getAsNumber());
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(1)).setNumber(1.2);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(0)).setNumber(-((0)));
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(3)).setNumber(0.5);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(2)).setNumber(0.9);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(6)).setNumber((2 * ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(0).getAsNumber() - 1) * 16);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(7)).setNumber(0);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].returnVariable(gdjs.SailingCode.GDFxObjects4[i].getVariables().getFromIndex(9)).setNumber(22);
+}
+}
+{for(var i = 0, len = gdjs.SailingCode.GDFxObjects4.length ;i < len;++i) {
+    gdjs.SailingCode.GDFxObjects4[i].setOpacity(0);
+}
+}
+}
+
+}
+
+
+};gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDDamageTextObjects4Objects = Hashtable.newFrom({"DamageText": gdjs.SailingCode.GDDamageTextObjects4});
+gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects = Hashtable.newFrom({"Fx": gdjs.SailingCode.GDFxObjects4});
+gdjs.SailingCode.eventsList34 = function(runtimeScene) {
 
 {
 
@@ -3154,7 +3176,7 @@ gdjs.SailingCode.GDFxObjects4.length = 0;
 }
 {runtimeScene.getScene().getVariables().getFromIndex(44).getChild("Sails").setNumber(Math.max(0, runtimeScene.getScene().getVariables().getFromIndex(44).getChild("Sails").getAsNumber() - ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(4).getAsNumber()));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(66).setNumber(1);
+{runtimeScene.getScene().getVariables().getFromIndex(67).setNumber(1);
 }
 {gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects, ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(7).getAsNumber(), ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(8).getAsNumber(), "FX");
 }
@@ -3285,7 +3307,7 @@ gdjs.SailingCode.GDFxObjects4.length = 0;
 }
 {runtimeScene.getGame().getVariables().getFromIndex(5).getChild("Sails").setNumber(Math.max(0, runtimeScene.getGame().getVariables().getFromIndex(5).getChild("Sails").getAsNumber() - ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(4).getAsNumber()));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(65).setNumber(1);
+{runtimeScene.getScene().getVariables().getFromIndex(66).setNumber(1);
 }
 {gdjs.evtTools.object.createObjectOnScene(runtimeScene, gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDFxObjects4Objects, ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(7).getAsNumber(), ((gdjs.SailingCode.GDCannonBallObjects4.length === 0 ) ? gdjs.VariablesContainer.badVariablesContainer : gdjs.SailingCode.GDCannonBallObjects4[0].getVariables()).getFromIndex(8).getAsNumber(), "FX");
 }
@@ -3602,7 +3624,7 @@ gdjs.copyArray(gdjs.SailingCode.GDCannonBallObjects3, gdjs.SailingCode.GDCannonB
 }
 
 
-};gdjs.SailingCode.eventsList34 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList35 = function(runtimeScene) {
 
 {
 
@@ -3613,6 +3635,47 @@ gdjs.copyArray(runtimeScene.getObjects("CannonBall"), gdjs.SailingCode.GDCannonB
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects2.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects2[i].returnVariable(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9)).add(gdjs.evtTools.runtimeScene.getElapsedTimeInSeconds(runtimeScene));
 }
+}
+}
+
+}
+
+
+{
+
+gdjs.copyArray(runtimeScene.getObjects("CannonBall"), gdjs.SailingCode.GDCannonBallObjects2);
+
+for (gdjs.SailingCode.forEachIndex3 = 0;gdjs.SailingCode.forEachIndex3 < gdjs.SailingCode.GDCannonBallObjects2.length;++gdjs.SailingCode.forEachIndex3) {
+gdjs.SailingCode.GDCannonBallObjects3.length = 0;
+
+
+gdjs.SailingCode.forEachTemporary3 = gdjs.SailingCode.GDCannonBallObjects2[gdjs.SailingCode.forEachIndex3];
+gdjs.SailingCode.GDCannonBallObjects3.push(gdjs.SailingCode.forEachTemporary3);
+let isConditionTrue_0 = false;
+isConditionTrue_0 = false;
+for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects3.length;i<l;++i) {
+    if ( gdjs.SailingCode.GDCannonBallObjects3[i].getVariableNumber(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(16)) == 0 ) {
+        isConditionTrue_0 = true;
+        gdjs.SailingCode.GDCannonBallObjects3[k] = gdjs.SailingCode.GDCannonBallObjects3[i];
+        ++k;
+    }
+}
+gdjs.SailingCode.GDCannonBallObjects3.length = k;
+if (isConditionTrue_0) {
+isConditionTrue_0 = false;
+for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects3.length;i<l;++i) {
+    if ( gdjs.SailingCode.GDCannonBallObjects3[i].getVariableNumber(gdjs.SailingCode.GDCannonBallObjects3[i].getVariables().getFromIndex(9)) >= 0 ) {
+        isConditionTrue_0 = true;
+        gdjs.SailingCode.GDCannonBallObjects3[k] = gdjs.SailingCode.GDCannonBallObjects3[i];
+        ++k;
+    }
+}
+gdjs.SailingCode.GDCannonBallObjects3.length = k;
+}
+if (isConditionTrue_0) {
+
+{ //Subevents: 
+gdjs.SailingCode.eventsList33(runtimeScene);} //Subevents end.
 }
 }
 
@@ -3634,17 +3697,28 @@ for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects2.length;i<l;++i)
 }
 gdjs.SailingCode.GDCannonBallObjects2.length = k;
 if (isConditionTrue_0) {
+isConditionTrue_0 = false;
+for (var i = 0, k = 0, l = gdjs.SailingCode.GDCannonBallObjects2.length;i<l;++i) {
+    if ( gdjs.SailingCode.GDCannonBallObjects2[i].getVariableNumber(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(16)) == 1 ) {
+        isConditionTrue_0 = true;
+        gdjs.SailingCode.GDCannonBallObjects2[k] = gdjs.SailingCode.GDCannonBallObjects2[i];
+        ++k;
+    }
+}
+gdjs.SailingCode.GDCannonBallObjects2.length = k;
+}
+if (isConditionTrue_0) {
 /* Reuse gdjs.SailingCode.GDCannonBallObjects2 */
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects2.length ;i < len;++i) {
     gdjs.SailingCode.GDCannonBallObjects2[i].setOpacity(255);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects2[i].setScale(0.9 * (runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber() / Math.max(1, (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + 45 * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))))));
+    gdjs.SailingCode.GDCannonBallObjects2[i].setScale(0.9 * (runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber() / Math.max(1, (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(18).getAsNumber() * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))))));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDCannonBallObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDCannonBallObjects2[i].setPosition((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(5).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(7).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + 45 * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))) - (gdjs.SailingCode.GDCannonBallObjects2[i].getWidth()) / 2,(runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + 45 * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + 45 * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))) - (gdjs.SailingCode.GDCannonBallObjects2[i].getHeight()) / 2);
+    gdjs.SailingCode.GDCannonBallObjects2[i].setPosition((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(5).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(7).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(18).getAsNumber() * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))) - (gdjs.SailingCode.GDCannonBallObjects2[i].getWidth()) / 2,(runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(18).getAsNumber() * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(6).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(8).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber()))) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - (((gdjs.evtTools.common.lerp(gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(11).getAsNumber(), gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(12).getAsNumber(), Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())) + gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(18).getAsNumber() * Math.sin(3.14159 * Math.min(1, gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(9).getAsNumber() / gdjs.SailingCode.GDCannonBallObjects2[i].getVariables().getFromIndex(10).getAsNumber())))) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))) - (gdjs.SailingCode.GDCannonBallObjects2[i].getHeight()) / 2);
 }
 }
 }
@@ -3680,7 +3754,7 @@ gdjs.SailingCode.GDCannonBallObjects3.length = k;
 if (isConditionTrue_0) {
 
 { //Subevents: 
-gdjs.SailingCode.eventsList33(runtimeScene);} //Subevents end.
+gdjs.SailingCode.eventsList34(runtimeScene);} //Subevents end.
 }
 }
 
@@ -3705,7 +3779,7 @@ gdjs.copyArray(runtimeScene.getObjects("CannonBall"), gdjs.SailingCode.GDCannonB
 }
 
 
-};gdjs.SailingCode.eventsList35 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList36 = function(runtimeScene) {
 
 {
 
@@ -3756,7 +3830,7 @@ if (isConditionTrue_0) {
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDFxObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDFxObjects2[i].setScale((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(3).getAsNumber() + gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(2).getAsNumber() * gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(0).getAsNumber()) * (runtimeScene.getScene().getVariables().getFromIndex(63).getAsNumber() / Math.max(1, (-(((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(5).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(8).getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))))));
+    gdjs.SailingCode.GDFxObjects2[i].setScale((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(3).getAsNumber() + gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(2).getAsNumber() * gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(0).getAsNumber()) * (runtimeScene.getScene().getVariables().getFromIndex(64).getAsNumber() / Math.max(1, (-(((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(5).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((gdjs.SailingCode.GDFxObjects2[i].getVariables().getFromIndex(8).getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))))));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDFxObjects2.length ;i < len;++i) {
@@ -3845,7 +3919,7 @@ if (isConditionTrue_0) {
 }
 
 
-};gdjs.SailingCode.eventsList36 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList37 = function(runtimeScene) {
 
 {
 
@@ -3936,7 +4010,7 @@ if (isConditionTrue_0) {
 }
 
 
-};gdjs.SailingCode.eventsList37 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList38 = function(runtimeScene) {
 
 {
 
@@ -3950,7 +4024,7 @@ let isConditionTrue_0 = false;
 }
 
 
-};gdjs.SailingCode.eventsList38 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList39 = function(runtimeScene) {
 
 {
 
@@ -4334,7 +4408,7 @@ gdjs.copyArray(runtimeScene.getObjects("SurrenderButton"), gdjs.SailingCode.GDSu
 }
 
 
-};gdjs.SailingCode.eventsList39 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList40 = function(runtimeScene) {
 
 {
 
@@ -4356,7 +4430,7 @@ gdjs.copyArray(runtimeScene.getObjects("Water3D"), gdjs.SailingCode.GDWater3DObj
 }
 
 
-};gdjs.SailingCode.eventsList40 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList41 = function(runtimeScene) {
 
 {
 
@@ -4381,7 +4455,7 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyShip3D"), gdjs.SailingCode.GDEnemyS
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyShip3DObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDEnemyShip3DObjects2[i].getBehavior("Object3D").setRotationY(4 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.4 + 1) - 7 * runtimeScene.getScene().getVariables().getFromIndex(56).getAsNumber() + 2.5 * runtimeScene.getScene().getVariables().getFromIndex(66).getAsNumber() * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 47) - (255 - (( gdjs.SailingCode.GDEnemyShipObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShipObjects2[0].getOpacity())) * 0.12);
+    gdjs.SailingCode.GDEnemyShip3DObjects2[i].getBehavior("Object3D").setRotationY(3 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.4 + 1) - 4 * runtimeScene.getScene().getVariables().getFromIndex(56).getAsNumber() + 2 * runtimeScene.getScene().getVariables().getFromIndex(67).getAsNumber() * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 47) - (255 - (( gdjs.SailingCode.GDEnemyShipObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyShipObjects2[0].getOpacity())) * 0.12);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyShip3DObjects2.length ;i < len;++i) {
@@ -4415,7 +4489,7 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyShip3D"), gdjs.SailingCode.GDEnemyS
 }
 
 
-};gdjs.SailingCode.eventsList41 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList42 = function(runtimeScene) {
 
 {
 
@@ -4428,7 +4502,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerShip"), gdjs.SailingCode.GDPlayerS
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerShipObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDPlayerShipObjects2[i].getBehavior("Object3D").setRotationY(4 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.6) + 7 * runtimeScene.getScene().getVariables().getFromIndex(55).getAsNumber() + 2.5 * runtimeScene.getScene().getVariables().getFromIndex(65).getAsNumber() * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 45));
+    gdjs.SailingCode.GDPlayerShipObjects2[i].getBehavior("Object3D").setRotationY(3 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.6) + 4 * runtimeScene.getScene().getVariables().getFromIndex(55).getAsNumber() + 2 * runtimeScene.getScene().getVariables().getFromIndex(66).getAsNumber() * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 45));
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerShipObjects2.length ;i < len;++i) {
@@ -4474,7 +4548,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerShip"), gdjs.SailingCode.GDPlayerS
 }
 
 
-};gdjs.SailingCode.eventsList42 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList43 = function(runtimeScene) {
 
 {
 
@@ -4523,7 +4597,7 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyHintText"), gdjs.SailingCode.GDEnem
 }
 
 
-};gdjs.SailingCode.eventsList43 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList44 = function(runtimeScene) {
 
 {
 
@@ -4560,7 +4634,7 @@ gdjs.copyArray(runtimeScene.getObjects("CombatFleeButton"), gdjs.SailingCode.GDC
 }
 
 
-};gdjs.SailingCode.eventsList44 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList45 = function(runtimeScene) {
 
 {
 
@@ -4671,7 +4745,7 @@ gdjs.copyArray(runtimeScene.getObjects("ParleyLabel"), gdjs.SailingCode.GDParley
 }
 
 { //Subevents
-gdjs.SailingCode.eventsList42(runtimeScene);} //End of subevents
+gdjs.SailingCode.eventsList43(runtimeScene);} //End of subevents
 }
 
 }
@@ -4816,13 +4890,13 @@ gdjs.copyArray(runtimeScene.getObjects("SurrenderLabel"), gdjs.SailingCode.GDSur
 }
 
 { //Subevents
-gdjs.SailingCode.eventsList43(runtimeScene);} //End of subevents
+gdjs.SailingCode.eventsList44(runtimeScene);} //End of subevents
 }
 
 }
 
 
-};gdjs.SailingCode.eventsList45 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList46 = function(runtimeScene) {
 
 {
 
@@ -4895,13 +4969,13 @@ gdjs.copyArray(runtimeScene.getObjects("StateText"), gdjs.SailingCode.GDStateTex
 }
 
 { //Subevents
-gdjs.SailingCode.eventsList44(runtimeScene);} //End of subevents
+gdjs.SailingCode.eventsList45(runtimeScene);} //End of subevents
 }
 
 }
 
 
-};gdjs.SailingCode.eventsList46 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList47 = function(runtimeScene) {
 
 {
 
@@ -5192,7 +5266,7 @@ gdjs.copyArray(runtimeScene.getObjects("StatusBanner"), gdjs.SailingCode.GDStatu
 }
 
 
-};gdjs.SailingCode.eventsList47 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList48 = function(runtimeScene) {
 
 {
 
@@ -5367,9 +5441,9 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyTagText"), gdjs.SailingCode.GDEnemy
 gdjs.copyArray(runtimeScene.getObjects("PlayerReloadBg"), gdjs.SailingCode.GDPlayerReloadBgObjects2);
 gdjs.copyArray(runtimeScene.getObjects("PlayerReloadFill"), gdjs.SailingCode.GDPlayerReloadFillObjects2);
 gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlayerTagTextObjects2);
-{runtimeScene.getScene().getVariables().getFromIndex(68).setNumber((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((runtimeScene.getScene().getVariables().getFromIndex(16).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
+{runtimeScene.getScene().getVariables().getFromIndex(70).setNumber((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((runtimeScene.getScene().getVariables().getFromIndex(16).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(69).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
+{runtimeScene.getScene().getVariables().getFromIndex(71).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(17).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 8.6) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
 }
 {runtimeScene.getScene().getVariables().getFromIndex(58).setNumber(170);
 }
@@ -5378,7 +5452,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlay
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyHullBgObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDEnemyHullBgObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber() - (runtimeScene.getScene().getVariables().getFromIndex(58).getAsNumber()) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - (runtimeScene.getScene().getVariables().getFromIndex(58).getAsNumber()) - 8),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() - 20);
+    gdjs.SailingCode.GDEnemyHullBgObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(70).getAsNumber() - (runtimeScene.getScene().getVariables().getFromIndex(58).getAsNumber()) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - (runtimeScene.getScene().getVariables().getFromIndex(58).getAsNumber()) - 8),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() - 20);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyHullFillObjects2.length ;i < len;++i) {
@@ -5386,7 +5460,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlay
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyHullFillObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDEnemyHullFillObjects2[i].setPosition((( gdjs.SailingCode.GDEnemyHullBgObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyHullBgObjects2[0].getPointX("")),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() - 20);
+    gdjs.SailingCode.GDEnemyHullFillObjects2[i].setPosition((( gdjs.SailingCode.GDEnemyHullBgObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDEnemyHullBgObjects2[0].getPointX("")),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() - 20);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyHullFillObjects2.length ;i < len;++i) {
@@ -5394,19 +5468,19 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlay
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyTagTextObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDEnemyTagTextObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber() - ((gdjs.SailingCode.GDEnemyTagTextObjects2[i].getWidth())) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - ((gdjs.SailingCode.GDEnemyTagTextObjects2[i].getWidth())) - 8),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() - 26 - (gdjs.SailingCode.GDEnemyTagTextObjects2[i].getHeight()));
+    gdjs.SailingCode.GDEnemyTagTextObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(70).getAsNumber() - ((gdjs.SailingCode.GDEnemyTagTextObjects2[i].getWidth())) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - ((gdjs.SailingCode.GDEnemyTagTextObjects2[i].getWidth())) - 8),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() - 26 - (gdjs.SailingCode.GDEnemyTagTextObjects2[i].getHeight()));
 }
 }
-{runtimeScene.getScene().getVariables().getFromIndex(68).setNumber((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((runtimeScene.getScene().getVariables().getFromIndex(5).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
+{runtimeScene.getScene().getVariables().getFromIndex(70).setNumber((runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2 + ((runtimeScene.getScene().getVariables().getFromIndex(5).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(69).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
+{runtimeScene.getScene().getVariables().getFromIndex(71).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2 - (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) + ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))) * runtimeScene.getScene().getVariables().getFromIndex(61).getAsNumber() / (-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() / 2) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber()) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())))));
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerReloadBgObjects2.length ;i < len;++i) {
     gdjs.SailingCode.GDPlayerReloadBgObjects2[i].setSize(120, 10);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerReloadBgObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDPlayerReloadBgObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber() - (120) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - (120) - 8),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() + 10);
+    gdjs.SailingCode.GDPlayerReloadBgObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(70).getAsNumber() - (120) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - (120) - 8),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() + 10);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerReloadFillObjects2.length ;i < len;++i) {
@@ -5414,7 +5488,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlay
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerReloadFillObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDPlayerReloadFillObjects2[i].setPosition((( gdjs.SailingCode.GDPlayerReloadBgObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerReloadBgObjects2[0].getPointX("")),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() + 10);
+    gdjs.SailingCode.GDPlayerReloadFillObjects2[i].setPosition((( gdjs.SailingCode.GDPlayerReloadBgObjects2.length === 0 ) ? 0 :gdjs.SailingCode.GDPlayerReloadBgObjects2[0].getPointX("")),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() + 10);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerReloadFillObjects2.length ;i < len;++i) {
@@ -5422,7 +5496,7 @@ gdjs.copyArray(runtimeScene.getObjects("PlayerTagText"), gdjs.SailingCode.GDPlay
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDPlayerTagTextObjects2.length ;i < len;++i) {
-    gdjs.SailingCode.GDPlayerTagTextObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber() - ((gdjs.SailingCode.GDPlayerTagTextObjects2[i].getWidth())) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - ((gdjs.SailingCode.GDPlayerTagTextObjects2[i].getWidth())) - 8),runtimeScene.getScene().getVariables().getFromIndex(69).getAsNumber() + 26);
+    gdjs.SailingCode.GDPlayerTagTextObjects2[i].setPosition(gdjs.evtTools.common.clamp(runtimeScene.getScene().getVariables().getFromIndex(70).getAsNumber() - ((gdjs.SailingCode.GDPlayerTagTextObjects2[i].getWidth())) / 2, 8, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() - ((gdjs.SailingCode.GDPlayerTagTextObjects2[i].getWidth())) - 8),runtimeScene.getScene().getVariables().getFromIndex(71).getAsNumber() + 26);
 }
 }
 {for(var i = 0, len = gdjs.SailingCode.GDAmmoRoundButtonObjects2.length ;i < len;++i) {
@@ -5545,7 +5619,7 @@ gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDAmmoGrapeButtonObjects2Object
 gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDAmmoChainButtonObjects2Objects = Hashtable.newFrom({"AmmoChainButton": gdjs.SailingCode.GDAmmoChainButtonObjects2});
 gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDCombatFleeButtonObjects2Objects = Hashtable.newFrom({"CombatFleeButton": gdjs.SailingCode.GDCombatFleeButtonObjects2});
 gdjs.SailingCode.mapOfGDgdjs_9546SailingCode_9546GDSurrenderButtonObjects2Objects = Hashtable.newFrom({"SurrenderButton": gdjs.SailingCode.GDSurrenderButtonObjects2});
-gdjs.SailingCode.eventsList48 = function(runtimeScene) {
+gdjs.SailingCode.eventsList49 = function(runtimeScene) {
 
 {
 
@@ -5946,7 +6020,7 @@ gdjs.copyArray(runtimeScene.getObjects("ReturnLabel"), gdjs.SailingCode.GDReturn
 }
 
 
-};gdjs.SailingCode.eventsList49 = function(runtimeScene) {
+};gdjs.SailingCode.eventsList50 = function(runtimeScene) {
 
 {
 
@@ -6053,9 +6127,11 @@ let isConditionTrue_0 = false;
 {
 {runtimeScene.getScene().getVariables().getFromIndex(61).setNumber((runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2) / Math.tan(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamFov").getAsNumber() / 2)));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(62).setNumber(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipLength").getAsNumber() / 16);
+{runtimeScene.getScene().getVariables().getFromIndex(62).setNumber(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipLength").getAsNumber() / runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Length").getAsNumber());
 }
-{runtimeScene.getScene().getVariables().getFromIndex(63).setNumber((-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))));
+{runtimeScene.getScene().getVariables().getFromIndex(63).setNumber(runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(8).getChild("Sloop").getChild("Height").getAsNumber() / 2);
+}
+{runtimeScene.getScene().getVariables().getFromIndex(64).setNumber((-(((runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber()) - runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2)) * Math.sin(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber())) - ((runtimeScene.getGame().getVariables().getFromIndex(0).getChild("ShipZ").getAsNumber() + runtimeScene.getScene().getVariables().getFromIndex(62).getAsNumber() * 2) - runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber()) * Math.cos(gdjs.toRad(runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber()))));
 }
 }
 
@@ -6101,13 +6177,6 @@ gdjs.SailingCode.eventsList27(runtimeScene);
 
 
 gdjs.SailingCode.eventsList32(runtimeScene);
-}
-
-
-{
-
-
-gdjs.SailingCode.eventsList34(runtimeScene);
 }
 
 
@@ -6163,7 +6232,7 @@ gdjs.SailingCode.eventsList41(runtimeScene);
 {
 
 
-gdjs.SailingCode.eventsList45(runtimeScene);
+gdjs.SailingCode.eventsList42(runtimeScene);
 }
 
 
@@ -6185,6 +6254,13 @@ gdjs.SailingCode.eventsList47(runtimeScene);
 
 
 gdjs.SailingCode.eventsList48(runtimeScene);
+}
+
+
+{
+
+
+gdjs.SailingCode.eventsList49(runtimeScene);
 }
 
 
@@ -6509,7 +6585,7 @@ gdjs.SailingCode.GDEnemyShip3DObjects3.length = 0;
 gdjs.SailingCode.GDEnemyShip3DObjects4.length = 0;
 gdjs.SailingCode.GDEnemyShip3DObjects5.length = 0;
 
-gdjs.SailingCode.eventsList49(runtimeScene);
+gdjs.SailingCode.eventsList50(runtimeScene);
 gdjs.SailingCode.GDOceanObjects1.length = 0;
 gdjs.SailingCode.GDOceanObjects2.length = 0;
 gdjs.SailingCode.GDOceanObjects3.length = 0;

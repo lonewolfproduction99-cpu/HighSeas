@@ -11,6 +11,8 @@ the look. This script reproduces them in a form glTF understands:
     same Mapping scale, so every pixel lands where Blender puts it);
   * the Hue/Saturation/Value step is applied to a copy of the texture;
   * the texture keeps "Closest" (pixel-art) filtering.
+It also writes <model>.firepoints.json: the muzzle of every cannon (or every empty named
+FirePoint* if you add some), which tools/phase3_3d.py loads so shots leave the gun tips.
 Your .blend is not changed: work happens on temporary copies that are deleted.
 """
 import colorsys
@@ -19,6 +21,7 @@ import os
 import bmesh
 import bpy
 import numpy as np
+from mathutils import Vector
 
 OUT = r"F:/HighSeas/assets/models/ships/sloop.glb"
 SKIP = set()   # object names to leave out
@@ -123,6 +126,36 @@ scene = bpy.context.scene
 deps = bpy.context.evaluated_depsgraph_get()
 sources = [o for o in scene.objects if o.type == "MESH" and o.visible_get() and o.name not in SKIP]
 
+
+def fire_points():
+    """Cannon muzzles, relative to the model origin GDevelop uses (bottom centre of the bounding
+    box), in metres. Game axes: x = Blender x, y = toward the stern (-Blender y), z = up.
+    Empties named FirePoint* win if you add them; otherwise the tip of every Cannon* mesh is used
+    (centre of its outermost vertices)."""
+    lo = [min((o.matrix_world @ Vector(c))[k] for o in sources for c in o.bound_box) for k in range(3)]
+    hi = [max((o.matrix_world @ Vector(c))[k] for o in sources for c in o.bound_box) for k in range(3)]
+    cx, cy, z0 = (lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, lo[2]
+    tips = [o.matrix_world.translation.copy() for o in scene.objects
+            if o.type == "EMPTY" and o.name.startswith("FirePoint")]
+    if not tips:
+        for o in sources:
+            if not o.name.startswith("Cannon"):
+                continue
+            me = o.evaluated_get(deps).to_mesh()
+            ws = [o.matrix_world @ v.co for v in me.vertices]
+            side = 1 if sum(w.x for w in ws) > 0 else -1
+            far = max(w.x * side for w in ws)
+            tip = [w for w in ws if w.x * side > far - 0.03]
+            tips.append(sum(tip, Vector()) / len(tip))
+            o.evaluated_get(deps).to_mesh_clear()
+    pts = sorted(({"X": round(t.x - cx, 3), "Y": round(-(t.y - cy), 3), "Z": round(t.z - z0, 3)} for t in tips),
+                 key=lambda p: -p["Y"])   # stern first, so a volley ripples toward the bow
+    return {"Starboard": [p for p in pts if p["X"] > 0], "Port": [p for p in pts if p["X"] < 0],
+            "Length": round(hi[1] - lo[1], 3), "Height": round(hi[2] - lo[2], 3)}
+
+
+guns = fire_points()
+
 # one rebuilt material per box-projected source material
 plans, rebuilt = {}, {}
 for o in sources:
@@ -189,4 +222,8 @@ for m in rebuilt.values():
     bpy.data.materials.remove(m)
 for img in [i for i in bpy.data.images if i.name.startswith("__export_")]:
     bpy.data.images.remove(img)
-print(f"exported {OUT}  ({tris} triangles, {os.path.getsize(OUT) // 1024} KB)")
+import json
+with open(OUT.replace(".glb", ".firepoints.json"), "w") as f:
+    json.dump(guns, f, indent=2)
+print(f"exported {OUT}  ({tris} triangles, {os.path.getsize(OUT) // 1024} KB), "
+      f"{len(guns['Starboard'])}+{len(guns['Port'])} fire points")

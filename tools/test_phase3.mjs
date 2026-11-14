@@ -169,7 +169,7 @@ for (let i = 0; i < 10; i++) {
   await SET("Voyage.Hull", 100); await SET("Voyage.Cannonballs", 60); await SET("Voyage.Crew", 12);
   await waitFor(async () => (await V("Enemy.Active")) === 0 && (await V("Voyage.State")) === "SAILING", 15000);
   await SET("Voyage.NextEncounterIn", 0);
-  if (!(await waitState("ENCOUNTER_DECISION", 6000))) { stuck++; continue; }
+  if (!(await waitState("ENCOUNTER_DECISION", 15000))) { stuck++; continue; }
   await sleep(300);
   await tap("FightButton");
   await waitState("COMBAT", 3000);
@@ -199,18 +199,58 @@ if (is3D) {
   await SET("Voyage.NextEncounterIn", 0);
   await waitState("ENCOUNTER_APPROACH");
   const shipCY = await V("ShipCY"), startY = await V("EnemyCY");
-  check("enemy appears far ahead, in the haze", startY < shipCY - 1500, `${Math.round(shipCY - startY)} ahead`);
-  await waitState("ENCOUNTER_DECISION", 6000);
+  const topY = (await V("LayoutH")) / 2 - (await V("Config.CamZ")) /
+    Math.tan(((await V("Config.CamPitch")) - (await V("Config.CamFov")) / 2) * Math.PI / 180);
+  check("enemy starts just above the top of the screen", startY + (await V("ShipH")) / 2 < topY && startY > topY - 1500,
+        `stern ${Math.round(topY - startY - (await V("ShipH")) / 2)} above the edge`);
+  await sleep(1000);
+  const y1 = await V("EnemyCY"); await sleep(1000); const y2 = await V("EnemyCY");
+  check("it slides down slowly at a steady speed", Math.abs((y2 - y1) - (await V("Config.DriftSpeed"))) < 25,
+        `${Math.round(y2 - y1)}/s`);
+  await waitState("ENCOUNTER_DECISION", 15000);
   const alongside = Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * 0.15)) < 2;
   check("enemy closes in alongside", alongside);
   await sleep(300); await tap("FightButton"); await waitState("COMBAT", 3000);
   await waitFor(async () => (await count("CannonBall")) > 0, 4000);
-  const balls = await g.page.evaluate(() => __scene.getObjects("CannonBall").map((b) => {
-    const v = (n) => b.getVariables().get(n).getAsNumber();
-    return { sh: v("SH"), eh: v("EH"), hit: v("Hit"), layer: b.getLayer() };
+  // muzzle check against the real 3D model: each ball must start at the tip of a cannon, i.e. at a
+  // fire point carried through the ship's actual three.js transform (roll, pitch, heading included).
+  // Measured right after the game step in which a ball launches, so the ship hasn't rocked since.
+  const muzzle = await g.page.evaluate(() => new Promise((resolve) => {
+    const proto = gdjs.RuntimeScene.prototype, prev = proto.renderAndStep;
+    proto.renderAndStep = function (dt) {
+      const r = prev.call(this, dt);
+      const v = (b, n) => b.getVariables().get(n).getAsNumber();
+      const fresh = this.getObjects("CannonBall").filter((b) => v(b, "Launched") === 1 && v(b, "T") < 0.05);
+      if (fresh.length) {
+        proto.renderAndStep = prev;
+        resolve(fresh.map((b) => {
+          const ship = this.getObjects(v(b, "Target") === 1 ? "PlayerShip" : "EnemyShip3D")[0];
+          // distance from the ball's start to the nearest vertex of the cannon meshes (black
+          // materials) as three.js has actually placed them this frame
+          const root = ship.get3DRendererObject(); root.updateMatrixWorld(true);
+          const S = [v(b, "SX"), -v(b, "SY"), v(b, "SH")];
+          let best = Infinity;
+          root.traverse((o) => {
+            if (!o.isMesh) return;
+            const m = Array.isArray(o.material) ? o.material[0] : o.material;
+            if (!(m.color.r < 0.05 && !m.map)) return;
+            const pos = o.geometry.attributes.position, P = new root.position.constructor();
+            for (let i = 0; i < pos.count; i++) {
+              P.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);
+              best = Math.min(best, Math.hypot(P.x - S[0], P.y - S[1], P.z - S[2]));
+            }
+          });
+          return { err: best, hit: v(b, "Hit"), eh: v(b, "EH"), layer: b.getLayer() };
+        }));
+      }
+      return r;
+    };
   }));
-  check("balls fire from deck height and fly on the FX overlay",
-        balls.every((b) => b.sh > 0 && b.layer === "FX"), JSON.stringify(balls[0]));
+  check("balls leave from the cannon tips of the 3D model", muzzle.length > 0 && muzzle.every((m) => m.err < 8),
+        "error " + muzzle.map((m) => m.err.toFixed(1)).join(", "));
+  const balls = await g.page.evaluate(() => __scene.getObjects("CannonBall").map((b) => ({
+    hit: b.getVariables().get("Hit").getAsNumber(), eh: b.getVariables().get("EH").getAsNumber(), layer: b.getLayer() })));
+  check("balls fly on the FX overlay", balls.every((b) => b.layer === "FX"));
   check("misses splash at water level", balls.every((b) => b.hit === 1 || b.eh < 0));
   const z = () => g.page.evaluate(() => __scene.getObjects("EnemyShip3D")[0].getZ());
   await SET("Enemy.Hull", 0);
@@ -219,12 +259,17 @@ if (is3D) {
   const z0 = await z(); await sleep(800); const z1 = await z();
   check("sunk enemy goes down in 3D", z1 < z0 - 50, `z ${Math.round(z0)} -> ${Math.round(z1)}`);
   await waitFor(async () => (await V("Enemy.Active")) === 0, 6000);
-  // a merchant that is left alone sails off ahead into the fog and frees the slot in time
+  // a merchant that is left alone drifts back at the same speed and leaves through the bottom
   await spawn("Merchant");
   await SET("Voyage.StateTime", 99);  // decision timeout -> merchant sails on
   const t0 = Date.now();
-  const gone = await waitFor(async () => (await V("Enemy.Active")) === 0, 12000);
-  check("departing ship sails off ahead and is cleaned up", gone, `${((Date.now() - t0) / 1000).toFixed(1)}s`);
+  await sleep(1000);
+  const d1 = await V("EnemyCY"); await sleep(1000); const d2 = await V("EnemyCY");
+  check("a ship that isn't sunk drifts back at the same speed", Math.abs((d2 - d1) - (await V("Config.DriftSpeed"))) < 25,
+        `${Math.round(d2 - d1)}/s`);
+  const gone = await waitFor(async () => (await V("Enemy.Active")) === 0, 16000);
+  check("...and leaves through the bottom, freeing the slot", gone && (await V("EnemyCY")) > (await V("LayoutH")) / 2,
+        `${((Date.now() - t0) / 1000).toFixed(1)}s`);
 }
 
 await g.finish();

@@ -15,7 +15,7 @@ experiment is still at `site/test-3d-overhead/` for comparison.
 - `assets/models/ships/sloop.glb`: 22k triangles, 1.4 MB. A fight frame is about 24 draw calls and
   44k triangles.
 - Camera behind and above your stern, with horizon fog: `Config.CamZ` 620, `CamPitch` 55°,
-  `CamFov` 60°. Ships at `ShipScale` 1.6, `ShipXFrac` 0.33.
+  `CamFov` 60°. Ships at `ShipScale` 1.85, `ShipXFrac` 0.33.
 - Cannonballs, flashes, smoke, splashes, damage numbers and ship tags are on a 2D "FX" layer above
   the 3D scene, projected from 3D points (`tools/proj3d.py`). They shrink with distance and are
   never hidden by hulls.
@@ -28,13 +28,18 @@ experiment is still at `site/test-3d-overhead/` for comparison.
   6. `tools/phase3_3d.py`
 
 ### 3D combat staging (`tools/phase3_3d.py`)
-- Broadsides fire from the sloop's real gun ports: 4 a side, on alternating upper and lower deck
-  heights taken from the Blender model. Balls fly a 3D arc to the target's near hull side; misses
-  splash into the water between the ships.
+- Every ball leaves the tip of a real cannon. `blender_export_ship.py` writes the muzzle positions to
+  `assets/models/ships/sloop.firepoints.json` (4 a side; any empties named `FirePoint*` take over if
+  you add them). When a ball launches, its gun's fire point is carried through the ship's current roll,
+  pitch and heading. GDevelop turns a model around its 3D centre, about 4 m up because of the mast,
+  so ignoring the roll is what made the first version's shots start in the wrong place.
+- Balls fly a 3D arc. Hits strike the near hull side, vanish in a burst and apply hull/crew/sail
+  damage. Misses either fall short between the ships or sail high past the bow or stern and splash.
 - Firing heels a ship over (recoil roll), and hits make it shudder.
 - A sunk enemy goes down bow-first while listing. Your ship does the same when hull reaches 0.
-- Enemies emerge from the haze ahead and close in alongside. Ships that sail on pull away into the
-  fog; ships you escape fall astern past the camera.
+- The ship you catch up with slides down from just above the top of the screen at a slow, steady
+  `Config.DriftSpeed` (120/s) until alongside. Unless it's sunk, it then keeps drifting back at the
+  same speed and leaves through the bottom of the screen; a sinking ship drifts back as it goes down.
 - The enemy name and hull bar float above its masthead, and your reload bar sits behind your stern.
   Both follow the ships and are kept on screen.
 
@@ -56,7 +61,10 @@ experiment is still at `site/test-3d-overhead/` for comparison.
   (lose half your unbanked gold).
 
 ### Tested (actual results, 2026-11-14)
-- `npm test` (headless phone-size playtest of the real `site/phase-3` build): **62/62 passed**.
+- `npm test` (headless phone-size playtest of the real `site/phase-3` build): **65/65 passed**.
+  The new checks: every launched ball is within 4.6 units of the real cannon mesh (the barrel's
+  radius), and the enemy starts above the top edge, drifts in at 122/s, drifts out at 120/s and is
+  gone after 9.6 s. The earlier results below still hold.
   - The original 55 combat checks, including a soak of 10 full real combats (no stuck states, peak
     31 spawned objects, none left over, no page errors).
   - 7 new 3D checks:

@@ -80,7 +80,7 @@ export async function openGame(phase) {
       await g.SET("Voyage.NextEncounterIn", 0);
       await g.waitState("ENCOUNTER_APPROACH");
       await g.unforce();
-      const ok = await g.waitState("ENCOUNTER_DECISION", 6000);
+      const ok = await g.waitState("ENCOUNTER_DECISION", 15000);  // 3D: slow drift-in from the top
       g.check(`${type} spawns and reaches decision`, ok && (await g.V("Enemy.Type")) === type, await g.V("Enemy.Name"));
       await g.sleep(300);
     },
@@ -88,7 +88,7 @@ export async function openGame(phase) {
       await g.sleep(300);
       await g.tap("ContinueButton");
       await g.waitState("SAILING");
-      await g.waitFor(async () => (await g.V("Enemy.Active")) === 0, 8000);
+      await g.waitFor(async () => (await g.V("Enemy.Active")) === 0, 16000);  // drifts out the bottom
     },
     async finish() {
       g.check("no page errors", errors.length === 0, errors.join(" | "));
