@@ -327,7 +327,7 @@
         {
           "name": "EncounterMinDelay",
           "type": "number",
-          "value": 8
+          "value": 5
         },
         {
           "name": "EncounterMaxDelay",

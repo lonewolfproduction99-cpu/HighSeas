@@ -87,7 +87,7 @@ experiment is still at `site/test-3d-overhead/` for comparison.
 ## Phase 2 — Sailing and Encounters: COMPLETE
 
 ### Completed
-- **Encounter timer**: a new ship every 8–15 s of sailing (`Config.EncounterMin/MaxDelay`). It only
+- **Encounter timer**: a new ship after a random 5–15 s of sailing (was 8–15) (`Config.EncounterMin/MaxDelay`). It only
   counts while SAILING with no other ship present, so encounters never overlap.
 - **Data-driven, weighted encounter types** (global `EncounterTypes`): Merchant and Pirate. Each has
   faction, hostility, base stats, a gold range, a name list, a weight and a weight-per-tier. New types
