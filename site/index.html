@@ -11,6 +11,7 @@
   .card { display: block; padding: 16px; margin-bottom: 12px; border-radius: 12px;
           background: #1b3a52; border: 2px solid #2d5574; color: inherit; text-decoration: none; }
   .card.latest { border-color: #f2c75c; }
+  .card.test { border-style: dashed; border-color: #6fb3d9; }
   .num { display: block; font-weight: 700; font-size: 18px; }
   .note { display: block; margin: 4px 0; }
   .date { font-size: 13px; opacity: .6; }
@@ -18,8 +19,16 @@
 <body><main>
 <h1>High Seas</h1>
 <p>Playable test build for each phase. Tap one, then use your browser's “Add to Home Screen” for full screen.</p>
-<a class="card latest" href="phase-2/">
-  <span class="num">Phase 2 · latest</span>
+<a class="card test" href="test-3d-overhead/">
+  <span class="num">Test · 3d-overhead</span>
+  <span class="note">3D test B: 3D ships, near-overhead 2.5D camera, 2D effects</span>
+  <span class="date">built 2026-11-14</span></a>
+<a class="card latest" href="phase-3/">
+  <span class="num">Phase 3 · latest</span>
+  <span class="note">Naval combat in 3D: broadsides from real gun ports, ships heel and sink</span>
+  <span class="date">built 2026-11-14</span></a>
+<a class="card" href="phase-2/">
+  <span class="num">Phase 2</span>
   <span class="note">Encounters: merchants &amp; pirates, Fight / Flee / Parley</span>
   <span class="date">built 2026-11-13</span></a>
 <a class="card" href="phase-1/">

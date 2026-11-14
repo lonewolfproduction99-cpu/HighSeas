@@ -189,6 +189,46 @@ def ui():
     icons()
 
 
+def combat_fx():
+    """Projectiles (24x24) and effects (64x64). Effects are tinted/faded by events."""
+    def save(img, name):
+        img.save(out("fx", name))
+
+    S = 24
+    img = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    d.ellipse([4, 4, 20, 20], fill=(30, 30, 34, 255)); d.ellipse([8, 7, 12, 11], fill=(120, 120, 130, 255))
+    save(img, "shot_round.png")
+    img = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    for x, y in ((6, 6), (13, 5), (8, 13), (15, 13), (11, 9)):
+        d.ellipse([x - 3, y - 3, x + 4, y + 4], fill=(70, 70, 76, 255))
+    save(img, "shot_grape.png")
+    img = Image.new("RGBA", (S, S), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    d.line([(6, 12), (18, 12)], fill=(150, 150, 150, 255), width=2)
+    d.ellipse([1, 7, 10, 16], fill=(30, 30, 34, 255)); d.ellipse([14, 7, 23, 16], fill=(30, 30, 34, 255))
+    save(img, "shot_chain.png")
+
+    F = 64
+    img = Image.new("RGBA", (F, F), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    pts = [(32 + (28 if i % 2 == 0 else 11) * math.cos(i * math.pi / 6),
+            32 + (28 if i % 2 == 0 else 11) * math.sin(i * math.pi / 6)) for i in range(12)]
+    d.polygon(pts, fill=(255, 210, 90, 255)); d.ellipse([22, 22, 42, 42], fill=(255, 250, 220, 255))
+    save(img, "fx_flash.png")
+    img = Image.new("RGBA", (F, F), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    for x, y, r in ((24, 34, 16), (38, 28, 18), (34, 42, 14)):
+        d.ellipse([x - r, y - r, x + r, y + r], fill=(205, 205, 210, 170))
+    save(img, "fx_smoke.png")
+    img = Image.new("RGBA", (F, F), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    d.ellipse([8, 16, 56, 48], outline=(235, 248, 255, 255), width=4)
+    for x, y in ((32, 10), (18, 14), (46, 14), (32, 22)):
+        d.ellipse([x - 4, y - 4, x + 4, y + 4], fill=(235, 248, 255, 255))
+    save(img, "fx_splash.png")
+    img = Image.new("RGBA", (F, F), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    d.polygon(pts, fill=(240, 120, 40, 255)); d.ellipse([24, 24, 40, 40], fill=(255, 220, 120, 255))
+    for x, y in ((10, 12), (52, 16), (14, 50), (50, 50)):
+        d.rectangle([x - 3, y - 2, x + 3, y + 2], fill=(110, 70, 35, 255))
+    save(img, "fx_hit.png")
+
+
 def port_bg():
     """Very rough harbor backdrop for the Port stub scene."""
     W, H = 360, 640
@@ -209,6 +249,7 @@ if __name__ == "__main__":
     foam_tile()
     player_ship()
     enemy_ships()
+    combat_fx()
     ui()
     port_bg()
     print("placeholders written to", os.path.abspath(ROOT))

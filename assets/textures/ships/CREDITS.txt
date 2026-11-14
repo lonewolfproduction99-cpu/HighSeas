@@ -1,0 +1,10 @@
+Ship wood textures - source: Poly Haven (https://polyhaven.com), license CC0 (public domain).
+Photographed/authored by people; no AI generation. Credit not required but appreciated.
+
+retro/ (downscaled to 128/64 px, 12-16 color palette) made from:
+  hull_weathered  <- brown_planks_03  https://polyhaven.com/a/brown_planks_03
+  hull_dark       <- dark_planks      https://polyhaven.com/a/dark_planks
+  deck_old        <- old_wood_floor   https://polyhaven.com/a/old_wood_floor
+  deck_raw        <- brown_planks_09  https://polyhaven.com/a/brown_planks_09
+
+source/ holds the original 1k diffuse JPGs.

@@ -18,7 +18,8 @@ One-time setup: install [Node.js](https://nodejs.org) (already on this PC), then
 | Play it on your phone (same Wi-Fi) | `npm run serve`, then open the "On your phone" address it prints |
 | Play it on your phone anywhere | Commit and push to GitHub. The Pages workflow publishes `site/` to `https://<user>.github.io/<repo>/` |
 
-| Run the automated encounter playtest | `npm run test:encounters` (after building phase 2+). Headless Chrome/Edge taps through every outcome |
+| Run the automated playtests | `npm test` (Phase 3 combat + 3D staging, 62 checks) or `npm run test:encounters` (Phase 2). Headless Chrome/Edge taps real buttons through every outcome |
+| Screenshot a build | `node tools/shot.mjs 3 out.png fight` |
 
 Every phase keeps its own build, so older phases stay playable for comparison.
 On a phone, use **Add to Home Screen** to play full screen.
@@ -33,6 +34,13 @@ tools/bootstrap_phase1.py     One-time generator used to create the Phase 1 proj
 tools/gdlib.py                Helpers for writing GDevelop events/objects from patch scripts
 tools/phase2_encounters.py    One-time patch that added Phase 2 (refuses to run twice)
 tools/test_phase2.mjs         Automated headless playtest of the encounter loop
+tools/phase3_combat.py        One-time patch that added Phase 3 combat rules (CombatManager)
+tools/spike_3d_*.py, setup_3d_chase.py, phase3_3d.py
+                              3D chase view + 3D combat staging (order in docs/STATUS.md)
+tools/proj3d.py               3D -> screen projection expressions for the FX overlay layer
+tools/blender_export_ship.py  Run inside Blender: exports a ship .glb that looks like it does in Blender
+tools/test_phase3.mjs, testkit.mjs, shot.mjs   Combat playtest, shared harness, screenshots
+assets/models/ships/          3D ship models (.glb) exported from Blender
 docs/STATUS.md                Completed features, known issues, next steps
 tools/build_web.mjs           npm run build: exports a phase build into site/
 tools/serve.mjs               npm run serve: serves site/ on this PC + local network

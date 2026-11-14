@@ -1,12 +1,25 @@
 [
   {
+    "slug": "test-3d-overhead",
+    "note": "3D test B: 3D ships, near-overhead 2.5D camera, 2D effects",
+    "built": "2026-11-14"
+  },
+  {
+    "slug": "phase-3",
+    "phase": 3,
+    "note": "Naval combat in 3D: broadsides from real gun ports, ships heel and sink",
+    "built": "2026-11-14"
+  },
+  {
     "phase": 2,
     "note": "Encounters: merchants & pirates, Fight / Flee / Parley",
-    "built": "2026-11-13"
+    "built": "2026-11-13",
+    "slug": "phase-2"
   },
   {
     "phase": 1,
     "note": "Foundation: scrolling ocean, ship, HUD, Port to Sail loop",
-    "built": "2026-11-13"
+    "built": "2026-11-13",
+    "slug": "phase-1"
   }
 ]

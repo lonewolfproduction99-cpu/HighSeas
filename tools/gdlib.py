@@ -151,11 +151,13 @@ def _frame(res):
             "customCollisionMask": []}
 
 
-def sprite_obj(name, res=None, animations=None):
-    """animations: {"AnimName": "resource"}; or a single res for one 'Default' animation."""
+def sprite_obj(name, res=None, animations=None, variables=None):
+    """animations: {"AnimName": "resource"}; or a single res for one 'Default' animation.
+    variables: {"Name": default} object variables (must be declared to compile)."""
     animations = animations or {"Default": res}
     return {"adaptCollisionMaskAutomatically": True, "updateIfNotVisible": False,
-            "name": name, "type": "Sprite", "variables": [], "effects": [],
+            "name": name, "type": "Sprite",
+            "variables": [var(k, v) for k, v in (variables or {}).items()], "effects": [],
             "behaviors": [], "tags": "",
             "animations": [{"name": a, "useMultipleDirections": False,
                             "directions": [{"looping": False, "timeBetweenFrames": 0.08,
@@ -163,8 +165,9 @@ def sprite_obj(name, res=None, animations=None):
                            for a, r in animations.items()]}
 
 
-def text_obj(name, text, size_=28, color="255;255;255", bold=True, align="left"):
-    return {"name": name, "type": "TextObject::Text", "variables": [], "effects": [],
+def text_obj(name, text, size_=28, color="255;255;255", bold=True, align="left", variables=None):
+    return {"name": name, "type": "TextObject::Text",
+            "variables": [var(k, v) for k, v in (variables or {}).items()], "effects": [],
             "behaviors": [], "tags": "",
             "content": {"bold": bold, "italic": False, "smoothed": True, "underlined": False,
                         "text": text, "font": "", "characterSize": size_, "color": color,
@@ -187,6 +190,40 @@ def scene(proj, name):
 
 def external(proj, name):
     return next((e for e in proj["externalEvents"] if e["name"] == name), None)
+
+
+def walk(events):
+    """Yield every event, including sub-events, depth first."""
+    for e in events:
+        yield e
+        yield from walk(e.get("events", []))
+
+
+def repeat(count_expr, index_var, events=None, actions=None):
+    return {"type": "BuiltinCommonInstructions::Repeat", "repeatExpression": str(count_expr),
+            "loopIndexVariable": index_var, "conditions": [], "actions": actions or [],
+            "events": events or []}
+
+
+def foreach_object(obj, conditions=None, actions=None, events=None):
+    return {"type": "BuiltinCommonInstructions::ForEach", "object": obj,
+            "conditions": conditions or [], "actions": actions or [], "events": events or []}
+
+
+def objvar(obj, name, value, op="="):
+    return act("SetNumberObjectVariable", obj, name, op, str(value))
+
+
+def objcmp(obj, name, op, value):
+    return cond("NumberObjectVariable", obj, name, op, str(value))
+
+
+def create(obj, x, y, layer=""):
+    return act("Create", "", obj, str(x), str(y), s(layer) if layer else '""')
+
+
+def delete(obj):
+    return act("Delete", obj, "")
 
 
 def find_group(events, name):

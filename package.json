@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node tools/build_web.mjs",
     "serve": "node tools/serve.mjs",
+    "test": "node tools/test_phase3.mjs",
     "test:encounters": "node tools/test_phase2.mjs"
   },
   "devDependencies": {

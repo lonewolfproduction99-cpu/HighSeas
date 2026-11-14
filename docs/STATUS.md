@@ -1,6 +1,82 @@
 # Development Status
 
-## Phase 2 — Sailing and Encounters: COMPLETE (awaiting approval)
+## Phase 3 — Naval Combat (3D chase view): COMPLETE (awaiting approval)
+Build: `site/phase-3/`. The 2D version of Phase 3 was replaced by this one. The 2.5D overhead
+experiment is still at `site/test-3d-overhead/` for comparison.
+
+### The look (3D chase camera, chosen 2026-11-14)
+- Your sloop from `PiratesShips.blend` is exported with `tools/blender_export_ship.py`, run inside
+  Blender. glTF can't carry the Blender materials, so the script rebuilds them:
+  - the world-space box projection becomes a real UV map;
+  - the Hue/Saturation/Value recolour is applied to a copy of `hull_dark_128.png`;
+  - pixel ("Closest") filtering is kept.
+  All parts are joined into one mesh, and the `.blend` is not modified. Re-run the script after
+  changing the ship.
+- `assets/models/ships/sloop.glb`: 22k triangles, 1.4 MB. A fight frame is about 24 draw calls and
+  44k triangles.
+- Camera behind and above your stern, with horizon fog: `Config.CamZ` 620, `CamPitch` 55°,
+  `CamFov` 60°. Ships at `ShipScale` 1.6, `ShipXFrac` 0.33.
+- Cannonballs, flashes, smoke, splashes, damage numbers and ship tags are on a 2D "FX" layer above
+  the 3D scene, projected from 3D points (`tools/proj3d.py`). They shrink with distance and are
+  never hidden by hulls.
+- Build order from the 2D Phase 3 project:
+  1. `tools/spike_3d_sloop.py`
+  2. `tools/spike_3d_enemy.py`
+  3. `tools/spike_3d_overhead.py`
+  4. `tools/spike_3d_fx_overlay.py`
+  5. `tools/setup_3d_chase.py`
+  6. `tools/phase3_3d.py`
+
+### 3D combat staging (`tools/phase3_3d.py`)
+- Broadsides fire from the sloop's real gun ports: 4 a side, on alternating upper and lower deck
+  heights taken from the Blender model. Balls fly a 3D arc to the target's near hull side; misses
+  splash into the water between the ships.
+- Firing heels a ship over (recoil roll), and hits make it shudder.
+- A sunk enemy goes down bow-first while listing. Your ship does the same when hull reaches 0.
+- Enemies emerge from the haze ahead and close in alongside. Ships that sail on pull away into the
+  fog; ships you escape fall astern past the camera.
+- The enemy name and hull bar float above its masthead, and your reload bar sits behind your stern.
+  Both follow the ships and are kept on screen.
+
+### Combat rules (unchanged from the 2D Phase 3)
+- `CombatManager` external events. Both ships fire volleys on reload timers; a crew shortage slows
+  reloading (`Config.CrewPerCannon`).
+- Every ball's hit, hull damage, crew kills and sail damage are rolled by logic when it is fired.
+  The projectile is only a visual: it applies its stored result when it lands, and only while the
+  state is still COMBAT. Leaving COMBAT deletes balls in flight.
+- Ammo (global `AmmoTypes`), switchable mid-combat:
+  - **Round:** full hull damage.
+  - **Grape:** 35% hull damage, but it kills crew.
+  - **Chain:** 40% hull damage, cuts sails, which slows the enemy and raises your flee chance.
+  One shared cannonball supply (starting 60), never negative; partial volleys when low; an
+  out-of-ammo warning.
+- Merchants fire round shot only; pirates also use some grape and chain.
+- Outcomes: enemy sinks (gold), enemy surrenders when badly damaged or out of crew (gold), you sink
+  (SUNK), you escape (speed × sail condition, 4 s cooldown after a failed try), or you surrender
+  (lose half your unbanked gold).
+
+### Tested (actual results, 2026-11-14)
+- `npm test` (headless phone-size playtest of the real `site/phase-3` build): **62/62 passed**.
+  - The original 55 combat checks, including a soak of 10 full real combats (no stuck states, peak
+    31 spawned objects, none left over, no page errors).
+  - 7 new 3D checks:
+    - the enemy appears about 2,100 units ahead and ends exactly alongside;
+    - balls start at deck height and fly on the FX layer;
+    - misses land at water level;
+    - a sunk enemy drops in 3D (z −26 → −191 in 0.8 s);
+    - a ship that sails on is gone and the slot freed after 6.3 s.
+- Screenshots checked for the approach, a volley, hits with spread-out damage numbers, and the
+  sinking enemy.
+- Not tested on a real phone yet.
+
+### Known issues / limitations
+- The enemy is your sloop again until enemy ship models exist.
+- The GDevelop watermark overlaps the top HUD for the first seconds.
+- If your crew reaches 0 your guns go silent with no message. The crew system is Phase 4.
+- Boarding is not offered yet (Phase 4 hook in CombatManager). Merchants never run mid-fight.
+- If phones struggle: a lower-poly enemy ship and Draco compression of the `.glb`.
+
+## Phase 2 — Sailing and Encounters: COMPLETE
 
 ### Completed
 - **Encounter timer**: a new ship every 8–15 s of sailing (`Config.EncounterMin/MaxDelay`). It only
@@ -55,7 +131,6 @@ Portrait 720×1280 `scaleOuter` project; Port stub + Sailing scene; scrolling oc
 voyage state machine; placeholder art and manifest. Tested at 16:9, 19.5:9 and 4:3 plus an
 interactive web build.
 
-## Next steps (Phase 3 — needs your approval)
-Automatic cannon combat: volleys on reload timers, cannonball projectiles, muzzle flash, splashes,
-hit/miss by accuracy, damage numbers, hull bars for both ships, sinking, rewards. Then Grape and
-Chain Shot with an in-combat ammo switch.
+## Next steps (Phase 4 — needs your approval)
+Boarding and crew: board a weakened or surrendered enemy, crew fights, crew loss messages, and
+hiring/recovery hooks for the port.
