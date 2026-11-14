@@ -29,17 +29,18 @@ experiment is still at `site/test-3d-overhead/` for comparison.
 
 ### 3D combat staging (`tools/phase3_3d.py`)
 - Every ball leaves the tip of a real cannon. `blender_export_ship.py` writes the muzzle positions to
-  `assets/models/ships/sloop.firepoints.json` (4 a side; any empties named `FirePoint*` take over if
-  you add them). When a ball launches, its gun's fire point is carried through the ship's current roll,
+  `assets/models/ships/sloop.firepoints.json`. They come from your empties: `PlayerFirePoint*` (right
+  side, the player's guns) and `OtherFirePoint*` (left side, the enemy's guns), 4 each. Re-export and
+  run `tools/patch_fast_entrance.py` to pick up moved empties. When a ball launches, its gun's fire point is carried through the ship's current roll,
   pitch and heading. GDevelop turns a model around its 3D centre, about 4 m up because of the mast,
   so ignoring the roll is what made the first version's shots start in the wrong place.
 - Balls fly a 3D arc. Hits strike the near hull side, vanish in a burst and apply hull/crew/sail
   damage. Misses either fall short between the ships or sail high past the bow or stern and splash.
 - Firing heels a ship over (recoil roll), and hits make it shudder.
 - A sunk enemy goes down bow-first while listing. Your ship does the same when hull reaches 0.
-- The ship you catch up with slides down from just above the top of the screen at a slow, steady
-  `Config.DriftSpeed` (120/s) until alongside. Unless it's sunk, it then keeps drifting back at the
-  same speed and leaves through the bottom of the screen; a sinking ship drifts back as it goes down.
+- The ship you catch up with comes down from just above the top of the screen in
+  `Config.ApproachTime` (3.5 s) and slows into place alongside. Unless it's sunk, it then drifts back
+  slowly at `Config.DriftSpeed` (120/s) and leaves through the bottom of the screen; a sinking ship drifts back as it goes down.
 - The enemy name and hull bar float above its masthead, and your reload bar sits behind your stern.
   Both follow the ships and are kept on screen.
 

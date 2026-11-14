@@ -7,7 +7,7 @@
   {
     "slug": "phase-3",
     "phase": 3,
-    "note": "Naval combat in 3D: shots from the cannon tips, slow drift in and out",
+    "note": "Faster entrances (3.5 s), fire points from PlayerFirePoint/OtherFirePoint empties",
     "built": "2026-11-14"
   },
   {

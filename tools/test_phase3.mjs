@@ -203,10 +203,11 @@ if (is3D) {
     Math.tan(((await V("Config.CamPitch")) - (await V("Config.CamFov")) / 2) * Math.PI / 180);
   check("enemy starts just above the top of the screen", startY + (await V("ShipH")) / 2 < topY && startY > topY - 1500,
         `stern ${Math.round(topY - startY - (await V("ShipH")) / 2)} above the edge`);
-  await sleep(1000);
-  const y1 = await V("EnemyCY"); await sleep(1000); const y2 = await V("EnemyCY");
-  check("it slides down slowly at a steady speed", Math.abs((y2 - y1) - (await V("Config.DriftSpeed"))) < 25,
-        `${Math.round(y2 - y1)}/s`);
+  const tEnter = Date.now();
+  await waitFor(async () => Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * 0.15)) < 2, 15000);
+  const enterS = (Date.now() - tEnter) / 1000, want = await V("Config.ApproachTime");
+  check("it comes in from the top in about Config.ApproachTime", Math.abs(enterS - want) < 0.8,
+        `${enterS.toFixed(1)} s (want ${want})`);
   await waitState("ENCOUNTER_DECISION", 15000);
   const alongside = Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * 0.15)) < 2;
   check("enemy closes in alongside", alongside);
@@ -218,9 +219,11 @@ if (is3D) {
   const muzzle = await g.page.evaluate(() => new Promise((resolve) => {
     const proto = gdjs.RuntimeScene.prototype, prev = proto.renderAndStep;
     proto.renderAndStep = function (dt) {
-      const r = prev.call(this, dt);
       const v = (b, n) => b.getVariables().get(n).getAsNumber();
-      const fresh = this.getObjects("CannonBall").filter((b) => v(b, "Launched") === 1 && v(b, "T") < 0.05);
+      const waiting = new Set(this.getObjects("CannonBall").filter((b) => v(b, "Launched") === 0));
+      const r = prev.call(this, dt);
+      // only balls that launched during this very step
+      const fresh = this.getObjects("CannonBall").filter((b) => waiting.has(b) && v(b, "Launched") === 1);
       if (fresh.length) {
         proto.renderAndStep = prev;
         resolve(fresh.map((b) => {

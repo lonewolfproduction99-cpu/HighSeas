@@ -337,7 +337,7 @@
         {
           "name": "ApproachTime",
           "type": "number",
-          "value": 2.5
+          "value": 3.5
         },
         {
           "name": "DecisionTimeout",
@@ -1083,7 +1083,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": 2.51
+                      "value": 2.5
                     },
                     {
                       "name": "Y",
@@ -1093,7 +1093,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 2.556
+                      "value": 2.6
                     }
                   ]
                 },
@@ -1103,7 +1103,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": 2.51
+                      "value": 2.5
                     },
                     {
                       "name": "Y",
@@ -1113,7 +1113,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 1.556
+                      "value": 1.6
                     }
                   ]
                 },
@@ -1123,7 +1123,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": 2.51
+                      "value": 2.5
                     },
                     {
                       "name": "Y",
@@ -1133,7 +1133,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 2.556
+                      "value": 2.6
                     }
                   ]
                 },
@@ -1143,7 +1143,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": 2.51
+                      "value": 2.5
                     },
                     {
                       "name": "Y",
@@ -1153,7 +1153,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 1.556
+                      "value": 1.6
                     }
                   ]
                 }
@@ -1169,7 +1169,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": -2.51
+                      "value": -2.5
                     },
                     {
                       "name": "Y",
@@ -1179,7 +1179,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 2.556
+                      "value": 2.6
                     }
                   ]
                 },
@@ -1189,7 +1189,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": -2.51
+                      "value": -2.5
                     },
                     {
                       "name": "Y",
@@ -1199,7 +1199,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 1.556
+                      "value": 1.6
                     }
                   ]
                 },
@@ -1209,7 +1209,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": -2.51
+                      "value": -2.5
                     },
                     {
                       "name": "Y",
@@ -1219,7 +1219,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 2.556
+                      "value": 2.6
                     }
                   ]
                 },
@@ -1229,7 +1229,7 @@
                     {
                       "name": "X",
                       "type": "number",
-                      "value": -2.51
+                      "value": -2.5
                     },
                     {
                       "name": "Y",
@@ -1239,7 +1239,7 @@
                     {
                       "name": "Z",
                       "type": "number",
-                      "value": 1.556
+                      "value": 1.6
                     }
                   ]
                 }
@@ -12010,7 +12010,7 @@
                       "parameters": [
                         "ApproachDur",
                         "=",
-                        "(ShipCY - ShipH * 0.15 - EnemyStartY) / Config.DriftSpeed"
+                        "Config.ApproachTime"
                       ]
                     },
                     {
@@ -12290,7 +12290,7 @@
                 "textG": 0,
                 "textR": 0
               },
-              "comment": "We are faster: the ship we catch up with slides down the screen at Config.DriftSpeed\nuntil it is alongside, holds there during the encounter, then (unless sunk) keeps\ndrifting back at the same speed and leaves through the bottom of the screen.",
+              "comment": "We are faster: the ship we catch up with comes in from the top of the screen in\nConfig.ApproachTime seconds and slows into place alongside, holds there during the\nencounter, then (unless sunk) drifts back at Config.DriftSpeed out of the bottom.",
               "comment2": ""
             },
             {
@@ -12363,7 +12363,7 @@
                   "parameters": [
                     "EnemyCY",
                     "=",
-                    "lerp(EnemyStartY, ShipCY - ShipH * 0.15, ApproachP)"
+                    "lerp(EnemyStartY, ShipCY - ShipH * 0.15, 1 - (1 - ApproachP) * (1 - ApproachP))"
                   ]
                 },
                 {

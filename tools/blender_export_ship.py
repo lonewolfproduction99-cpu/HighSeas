@@ -11,8 +11,9 @@ the look. This script reproduces them in a form glTF understands:
     same Mapping scale, so every pixel lands where Blender puts it);
   * the Hue/Saturation/Value step is applied to a copy of the texture;
   * the texture keeps "Closest" (pixel-art) filtering.
-It also writes <model>.firepoints.json: the muzzle of every cannon (or every empty named
-FirePoint* if you add some), which tools/phase3_3d.py loads so shots leave the gun tips.
+It also writes <model>.firepoints.json, which tools/phase3_3d.py loads so shots leave the gun
+tips: empties named PlayerFirePoint* (player's guns, right side) and OtherFirePoint* (enemy
+guns, left side); without those, empties named FirePoint*, else the muzzle of every Cannon* mesh.
 Your .blend is not changed: work happens on temporary copies that are deleted.
 """
 import colorsys
@@ -135,6 +136,19 @@ def fire_points():
     lo = [min((o.matrix_world @ Vector(c))[k] for o in sources for c in o.bound_box) for k in range(3)]
     hi = [max((o.matrix_world @ Vector(c))[k] for o in sources for c in o.bound_box) for k in range(3)]
     cx, cy, z0 = (lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, lo[2]
+    def rel(t):
+        return {"X": round(t.x - cx, 3), "Y": round(-(t.y - cy), 3), "Z": round(t.z - z0, 3)}
+
+    def empties(prefix):
+        pts = [rel(o.matrix_world.translation) for o in scene.objects
+               if o.type == "EMPTY" and o.name.startswith(prefix)]
+        return sorted(pts, key=lambda p: -p["Y"])   # stern first, so a volley ripples toward the bow
+
+    # PlayerFirePoint* = the guns the player fires (right side), OtherFirePoint* = enemy guns (left)
+    player, other = empties("PlayerFirePoint"), empties("OtherFirePoint")
+    if player and other:
+        return {"Starboard": player, "Port": other,
+                "Length": round(hi[1] - lo[1], 3), "Height": round(hi[2] - lo[2], 3)}
     tips = [o.matrix_world.translation.copy() for o in scene.objects
             if o.type == "EMPTY" and o.name.startswith("FirePoint")]
     if not tips:
@@ -148,8 +162,7 @@ def fire_points():
             tip = [w for w in ws if w.x * side > far - 0.03]
             tips.append(sum(tip, Vector()) / len(tip))
             o.evaluated_get(deps).to_mesh_clear()
-    pts = sorted(({"X": round(t.x - cx, 3), "Y": round(-(t.y - cy), 3), "Z": round(t.z - z0, 3)} for t in tips),
-                 key=lambda p: -p["Y"])   # stern first, so a volley ripples toward the bow
+    pts = sorted((rel(t) for t in tips), key=lambda p: -p["Y"])
     return {"Starboard": [p for p in pts if p["X"] > 0], "Port": [p for p in pts if p["X"] < 0],
             "Length": round(hi[1] - lo[1], 3), "Height": round(hi[2] - lo[2], 3)}
 
