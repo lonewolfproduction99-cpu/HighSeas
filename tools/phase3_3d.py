@@ -234,7 +234,7 @@ combat[0]["comment"] += ("\n3D: balls fly from the sloop's real gun ports along 
 
 # ------------------------------------------------------------------ encounter staging
 enc = external(proj, "EncounterManager")["events"]
-ALONGSIDE_Y = "ShipCY - ShipH * 0.15"
+ALONGSIDE_Y = "ShipCY - ShipH * Config.AlongsideAhead"   # 0 = level with the player ship
 # ground y seen at the very top edge of the screen (the camera looks down, no horizon at this pitch)
 TOP_Y = "(LayoutH / 2 - Config.CamZ / tan(ToRad(max(5, Config.CamPitch - Config.CamFov / 2))))"
 GONE_Y = "LayoutH / 2 + ShipH * 0.6"     # bow has passed under the camera: off the bottom edge

@@ -207,12 +207,12 @@ if (is3D) {
   check("enemy starts just above the top of the screen", startY + (await V("ShipH")) / 2 < topY && startY > topY - 1500,
         `stern ${Math.round(topY - startY - (await V("ShipH")) / 2)} above the edge`);
   const tEnter = Date.now();
-  await waitFor(async () => Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * 0.15)) < 2, 15000);
+  await waitFor(async () => Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * (await V("Config.AlongsideAhead")))) < 2, 15000);
   const enterS = (Date.now() - tEnter) / 1000, want = await V("Config.ApproachTime");
   check("it comes in from the top in about Config.ApproachTime", Math.abs(enterS - want) < 0.8,
         `${enterS.toFixed(1)} s (want ${want})`);
   await waitState("ENCOUNTER_DECISION", 15000);
-  const alongside = Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * 0.15)) < 2;
+  const alongside = Math.abs((await V("EnemyCY")) - (shipCY - (await V("ShipH")) * (await V("Config.AlongsideAhead")))) < 2;
   check("enemy closes in alongside", alongside);
   await sleep(300); await tap("FightButton"); await waitState("COMBAT", 3000);
   await waitFor(async () => (await count("CannonBall")) > 0, 4000);

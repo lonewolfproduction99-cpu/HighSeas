@@ -453,6 +453,11 @@
           "name": "DriftSpeed",
           "type": "number",
           "value": 120
+        },
+        {
+          "name": "AlongsideAhead",
+          "type": "number",
+          "value": 0
         }
       ]
     },
@@ -12435,7 +12440,7 @@
                   "parameters": [
                     "EnemyCY",
                     "=",
-                    "lerp(EnemyStartY, ShipCY - ShipH * 0.15, 1 - (1 - ApproachP) * (1 - ApproachP))"
+                    "lerp(EnemyStartY, ShipCY - ShipH * Config.AlongsideAhead, 1 - (1 - ApproachP) * (1 - ApproachP))"
                   ]
                 },
                 {

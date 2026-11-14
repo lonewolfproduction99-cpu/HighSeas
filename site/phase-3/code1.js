@@ -1116,7 +1116,7 @@ gdjs.copyArray(runtimeScene.getObjects("EnemyShip"), gdjs.SailingCode.GDEnemyShi
 }
 {runtimeScene.getScene().getVariables().getFromIndex(16).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(18).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(19).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(21).getAsNumber()));
 }
-{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * 0.15, 1 - (1 - runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber()) * (1 - runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber())));
+{runtimeScene.getScene().getVariables().getFromIndex(17).setNumber(gdjs.evtTools.common.lerp(runtimeScene.getScene().getVariables().getFromIndex(68).getAsNumber(), runtimeScene.getScene().getVariables().getFromIndex(6).getAsNumber() - runtimeScene.getScene().getVariables().getFromIndex(7).getAsNumber() * runtimeScene.getGame().getVariables().getFromIndex(0).getChild("AlongsideAhead").getAsNumber(), 1 - (1 - runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber()) * (1 - runtimeScene.getScene().getVariables().getFromIndex(20).getAsNumber())));
 }
 {for(var i = 0, len = gdjs.SailingCode.GDEnemyShipObjects2.length ;i < len;++i) {
     gdjs.SailingCode.GDEnemyShipObjects2[i].setAngle(2 * Math.sin(gdjs.evtTools.runtimeScene.getTimeFromStartInSeconds(runtimeScene) * 1.4));

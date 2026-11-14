@@ -22,7 +22,7 @@ upsert(proj["variables"], var("ShipGuns", {"Sloop": {
 
 OLD_DUR = "(ShipCY - ShipH * 0.15 - EnemyStartY) / Config.DriftSpeed"
 OLD_Y = "lerp(EnemyStartY, ShipCY - ShipH * 0.15, ApproachP)"
-NEW_Y = "lerp(EnemyStartY, ShipCY - ShipH * 0.15, 1 - (1 - ApproachP) * (1 - ApproachP))"
+NEW_Y = "lerp(EnemyStartY, ShipCY - ShipH * Config.AlongsideAhead, 1 - (1 - ApproachP) * (1 - ApproachP))"
 hits = {"dur": 0, "y": 0}
 for e in walk(external(proj, "EncounterManager")["events"]):
     for a in e.get("actions", []):
