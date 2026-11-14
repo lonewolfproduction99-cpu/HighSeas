@@ -62,7 +62,11 @@ experiment is still at `site/test-3d-overhead/` for comparison.
   (lose half your unbanked gold).
 
 ### Tested (actual results, 2026-11-14)
-- `npm test` (headless phone-size playtest of the real `site/phase-3` build): **65/65 passed**.
+- `npm test` (headless phone-size playtest of the real `site/phase-3` build): **66/66 passed**.
+  It resizes the screen mid-voyage and checks balls are drawn on screen at the guns (0.4 px).
+  Fixed: when the screen changed size during play (browser bar, rotation), the 3D camera stayed
+  at the old centre, so balls and smoke were drawn far from the cannons. Every layer camera is now
+  re-centred on resize (`tools/patch_camera_center.py`).
   The new checks: every launched ball is within 4.6 units of the real cannon mesh (the barrel's
   radius), and the enemy starts above the top edge, drifts in at 122/s, drifts out at 120/s and is
   gone after 9.6 s. The earlier results below still hold.

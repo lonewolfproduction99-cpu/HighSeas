@@ -195,6 +195,9 @@ const is3D = await g.page.evaluate(() => __scene.getObjects("EnemyShip3D").lengt
 if (is3D) {
   if ((await g.sceneName()) === "Port") { await sleep(400); await tap("SetSailButton"); await waitState("SAILING"); }
   await SET("Voyage.Hull", 100); await SET("Voyage.Cannonballs", 60); await SET("Voyage.Crew", 12);
+  // resize mid-voyage (phone browser bar hiding, rotation): the overlay must stay locked to the 3D view
+  await g.page.setViewport({ width: 375, height: 667, deviceScaleFactor: 1 });
+  await sleep(500);
   await waitFor(async () => (await V("Enemy.Active")) === 0 && (await V("Voyage.State")) === "SAILING", 15000);
   await SET("Voyage.NextEncounterIn", 0);
   await waitState("ENCOUNTER_APPROACH");
@@ -243,7 +246,13 @@ if (is3D) {
               best = Math.min(best, Math.hypot(P.x - S[0], P.y - S[1], P.z - S[2]));
             }
           });
-          return { err: best, hit: v(b, "Hit"), eh: v(b, "EH"), layer: b.getLayer() };
+          // where the ball is drawn on screen vs where the 3D camera shows its start point
+          const cam = this.getLayer("").getRenderer().getThreeCamera(), fx = this.getLayer("FX");
+          const W = this.getGame().getGameResolutionWidth(), H = this.getGame().getGameResolutionHeight();
+          const Q = new root.position.constructor(S[0], S[1], S[2]).project(cam);
+          const scr = Math.hypot(b.getCenterXInScene() - fx.getCameraX() + W / 2 - (Q.x + 1) / 2 * W,
+                                 b.getCenterYInScene() - fx.getCameraY() + H / 2 - (1 - Q.y) / 2 * H);
+          return { err: best, scr, hit: v(b, "Hit"), eh: v(b, "EH"), layer: b.getLayer() };
         }));
       }
       return r;
@@ -251,6 +260,8 @@ if (is3D) {
   }));
   check("balls leave from the cannon tips of the 3D model", muzzle.length > 0 && muzzle.every((m) => m.err < 8),
         "error " + muzzle.map((m) => m.err.toFixed(1)).join(", "));
+  check("...and are drawn on screen at the guns, after a resize", muzzle.length > 0 && muzzle.every((m) => m.scr < 6),
+        "screen error " + muzzle.map((m) => m.scr.toFixed(1)).join(", ") + " px");
   const balls = await g.page.evaluate(() => __scene.getObjects("CannonBall").map((b) => ({
     hit: b.getVariables().get("Hit").getAsNumber(), eh: b.getVariables().get("EH").getAsNumber(), layer: b.getLayer() })));
   check("balls fly on the FX overlay", balls.every((b) => b.layer === "FX"));

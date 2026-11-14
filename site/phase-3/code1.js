@@ -4135,6 +4135,18 @@ gdjs.copyArray(runtimeScene.getObjects("SurrenderButton"), gdjs.SailingCode.GDSu
 }
 }
 {/* Unknown instruction - skipped. */}
+{gdjs.evtTools.camera.setCameraX(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2, "", 0);
+}
+{gdjs.evtTools.camera.setCameraY(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2, "", 0);
+}
+{gdjs.evtTools.camera.setCameraX(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2, "FX", 0);
+}
+{gdjs.evtTools.camera.setCameraY(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2, "FX", 0);
+}
+{gdjs.evtTools.camera.setCameraX(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(0).getAsNumber() / 2, "HUD", 0);
+}
+{gdjs.evtTools.camera.setCameraY(runtimeScene, runtimeScene.getScene().getVariables().getFromIndex(1).getAsNumber() / 2, "HUD", 0);
+}
 {gdjs.scene3d.camera.setCameraZ(runtimeScene, runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamZ").getAsNumber(), "", 0);
 }
 {gdjs.scene3d.camera.setCameraRotationX(runtimeScene, runtimeScene.getGame().getVariables().getFromIndex(0).getChild("CamPitch").getAsNumber(), "", 0);

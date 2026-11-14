@@ -7,7 +7,7 @@
   {
     "slug": "phase-3",
     "phase": 3,
-    "note": "Faster entrances (3.5 s), fire points from PlayerFirePoint/OtherFirePoint empties",
+    "note": "Cameras re-centre on resize (balls drawn at the guns)",
     "built": "2026-11-14"
   },
   {
